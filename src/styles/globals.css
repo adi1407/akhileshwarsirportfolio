@@ -1,0 +1,261 @@
+/* ═══════════════════════════════════════════════
+   CINEMATIC PORTFOLIO — GLOBAL DESIGN SYSTEM
+   Dark luxury — Gold accents — Cinema aesthetic
+═══════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colors */
+  --black: #060608;
+  --void: #080810;
+  --charcoal: #0f0f18;
+  --charcoal-mid: #141420;
+  --charcoal-light: #1c1c2e;
+  --gold: #c9a84c;
+  --gold-bright: #e8c96a;
+  --gold-dim: #8a6f2e;
+  --gold-mist: rgba(201, 168, 76, 0.08);
+  --white: #f5f0e8;
+  --white-dim: rgba(245, 240, 232, 0.7);
+  --white-muted: rgba(245, 240, 232, 0.4);
+  --white-ghost: rgba(245, 240, 232, 0.12);
+
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Motion */
+  --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-premium: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-gentle: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-confident: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+  /* Glass */
+  --glass-bg: rgba(14, 14, 22, 0.7);
+  --glass-border: rgba(201, 168, 76, 0.15);
+  --glass-blur: blur(20px);
+
+  /* Typography scale */
+  --text-xs: clamp(0.65rem, 1.5vw, 0.75rem);
+  --text-sm: clamp(0.8rem, 1.8vw, 0.9rem);
+  --text-base: clamp(0.95rem, 2vw, 1rem);
+  --text-lg: clamp(1.1rem, 2.5vw, 1.25rem);
+  --text-xl: clamp(1.4rem, 3vw, 1.75rem);
+  --text-2xl: clamp(1.8rem, 4vw, 2.5rem);
+  --text-3xl: clamp(2.5rem, 6vw, 4rem);
+  --text-4xl: clamp(3rem, 8vw, 6rem);
+  --text-hero: clamp(3.5rem, 12vw, 9rem);
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Prevent scroll on body — scene engine handles navigation */
+body.no-scroll { overflow: hidden; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+/* ─── Selection ─── */
+::selection {
+  background: rgba(201, 168, 76, 0.2);
+  color: var(--gold-bright);
+}
+
+/* ─── Scene Engine ─── */
+.scene-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: transform, opacity, filter;
+}
+
+/* ─── Glass Card ─── */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 12px;
+}
+
+/* ─── Gold Glow ─── */
+.gold-glow {
+  text-shadow: 0 0 40px rgba(201, 168, 76, 0.4), 0 0 80px rgba(201, 168, 76, 0.15);
+}
+
+/* ─── Typography ─── */
+.font-serif { font-family: var(--font-serif); }
+.font-mono  { font-family: var(--font-mono); }
+
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.01em; }
+
+/* ─── Utility ─── */
+.text-gold   { color: var(--gold); }
+.text-gold-bright { color: var(--gold-bright); }
+.text-dim    { color: var(--white-dim); }
+.text-muted  { color: var(--white-muted); }
+
+/* ─── Buttons ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2.5rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s var(--ease-cinema);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-101%);
+  transition: transform 0.4s var(--ease-cinema);
+}
+
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover { color: var(--black); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: var(--white-ghost);
+  border: 1px solid var(--white-ghost);
+  color: var(--white-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s var(--ease-gentle);
+}
+
+.btn-ghost:hover {
+  background: var(--gold-mist);
+  border-color: var(--glass-border);
+  color: var(--gold);
+}
+
+/* ─── Gold line decorator ─── */
+.gold-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ─── Scene label ─── */
+.scene-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--white-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Safe area for iOS ─── */
+.safe-pad {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ─── Canvas layers ─── */
+canvas.ambient {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ─── Noise grain overlay ─── */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── Portal intro animations ─── */
+@keyframes portalBreathe {
+  0%, 100% { opacity: 0.78; transform: scale(1); }
+  50%       { opacity: 1;    transform: scale(1.09); }
+}
+
+@keyframes portalRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── Spotlight effect ─── */
+.spotlight {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
