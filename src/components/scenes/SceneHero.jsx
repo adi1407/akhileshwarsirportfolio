@@ -182,8 +182,8 @@ export default function SceneHero({ navigate }) {
     }
   }, [isMobile, prefersReduced])
 
-  const portraitW = isMobile ? 'min(160px, 44vw)' : 'min(340px, 30vw)'
-  const portraitH = isMobile ? 'min(130px, 36vw)' : 'min(440px, 62vh)'
+  const portraitW = isMobile ? 'min(210px, 56vw)' : 'min(340px, 30vw)'
+  const portraitH = isMobile ? 'min(190px, 52vw)' : 'min(440px, 62vh)'
 
   return (
     <div
