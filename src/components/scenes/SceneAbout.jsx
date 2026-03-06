@@ -8,61 +8,48 @@ const SENTENCES = [
   {
     id: 0,
     segments: [
-      { text: 'I am a builder at the intersection of clinical need and technological imagination.' },
+      { text: 'Akhileshwar K. Singh has spent more than three decades working at the precise intersection of ' },
+      { text: 'clinical care, institutional finance, and systemic reform', key: true },
+      { text: '.' },
     ],
   },
   {
     id: 1,
     segments: [
-      { text: 'For over a decade, I have dedicated myself to one central belief — that technology, when thoughtfully designed, can ' },
-      { text: 'reshape how it serves people', key: true },
-      { text: '.' },
+      { text: 'As the founder of IUI Solutions, he brings a breadth of perspective forged across hospitals, health insurance, media, and Revenue Cycle Management.' },
     ],
   },
   {
     id: 2,
+    quote: true,
     segments: [
-      { text: 'At IUI Solutions, we craft enterprise-grade systems for healthcare — security-first, compliance by design, relentlessly human.' },
+      { text: 'His life\u2019s work has been guided by one conviction: that great healthcare must be ' },
+      { text: 'both deeply human and financially sound', key: true },
+      { text: ' \u2014 and that these two goals are never in conflict.' },
     ],
   },
   {
     id: 3,
     segments: [
-      { text: 'I have architected infrastructure that handles millions of patient records with sub-second precision, and built products that reduced physician burnout across entire health systems.' },
-    ],
-  },
-  {
-    id: 4,
-    segments: [
-      { text: 'The work has never been about scale for its own sake. It has always been about ' },
-      { text: 'simplifying complexity through technology', key: true },
-      { text: ' — making the difficult feel effortless.' },
-    ],
-  },
-  {
-    id: 5,
-    segments: [
-      { text: 'We are now at a pivotal moment. ' },
-      { text: 'Innovation in healthcare systems', key: true },
-      { text: ' is no longer optional. The vision ahead is clear, deliberate, and deeply personal.' },
-    ],
-  },
-  {
-    id: 6,
-    segments: [
-      { text: 'This portfolio is not a retrospective.' },
-    ],
-  },
-  {
-    id: 7,
-    segments: [
-      { text: 'It is a prelude.' },
+      { text: 'Guided by a Clinical Psychology background and a philosopher\u2019s patience for long-term thinking, he crafts decisions that are as ' },
+      { text: 'empathetic as they are strategically sound', key: true },
+      { text: '.' },
     ],
   },
 ]
 
+const EXPERTISE = [
+  'Revenue Cycle Management',
+  'Hospital Administration',
+  'Health Insurance & Risk',
+  'Healthcare Entrepreneurship',
+  'Reproductive Healthcare',
+  'Clinical Psychology',
+]
+
 // Delays in ms after the opening line finishes drawing
-const REVEAL_DELAYS = [400, 2200, 4400, 6700, 9100, 11700, 14200, 16000]
+const REVEAL_DELAYS  = [400, 2100, 4400, 6600]
+const EXPERTISE_DELAY = 8000
 const LINE_PAUSE_MS  = 700
 const LINE_DUR_MS    = 1500
 
@@ -71,8 +58,9 @@ const LINE_DUR_MS    = 1500
 export default function SceneAbout({ navigate }) {
   const [isMobile, setIsMobile]         = useState(false)
   const [isTablet, setIsTablet]         = useState(false)
-  const [lineDrawn, setLineDrawn]       = useState(false)
+  const [lineDrawn, setLineDrawn]         = useState(false)
   const [revealedCount, setRevealedCount] = useState(-1)
+  const [showExpertise, setShowExpertise] = useState(false)
   const [showSignature, setShowSignature] = useState(false)
 
   // ── Responsive layout ──
@@ -94,11 +82,13 @@ export default function SceneAbout({ navigate }) {
     if (reduced) {
       setLineDrawn(true)
       setRevealedCount(SENTENCES.length)
+      setShowExpertise(true)
       setShowSignature(true)
       return
     }
 
     const timers = []
+    const base = LINE_PAUSE_MS + LINE_DUR_MS
 
     // Draw line
     timers.push(setTimeout(() => setLineDrawn(true), LINE_PAUSE_MS * speed))
@@ -107,15 +97,21 @@ export default function SceneAbout({ navigate }) {
     REVEAL_DELAYS.forEach((delay, i) => {
       timers.push(setTimeout(
         () => setRevealedCount(i),
-        (LINE_PAUSE_MS + LINE_DUR_MS + delay) * speed,
+        (base + delay) * speed,
       ))
     })
 
-    // Signature — appears after last sentence, then dims all text
-    const sigMs = (LINE_PAUSE_MS + LINE_DUR_MS + REVEAL_DELAYS.at(-1) + 1400) * speed
+    // Expertise — appears after last sentence
+    timers.push(setTimeout(
+      () => setShowExpertise(true),
+      (base + EXPERTISE_DELAY) * speed,
+    ))
+
+    // Signature — appears after expertise, dims all sentence text
+    const sigMs = (base + EXPERTISE_DELAY + 1500) * speed
     timers.push(setTimeout(() => {
       setShowSignature(true)
-      setRevealedCount(SENTENCES.length) // dim all; signature becomes focal point
+      setRevealedCount(SENTENCES.length)
     }, sigMs))
 
     return () => timers.forEach(clearTimeout)
@@ -238,14 +234,14 @@ export default function SceneAbout({ navigate }) {
           style={{
             display: 'flex', flexDirection: 'column',
             gap: isMobile ? '1.5rem' : '2rem',
-            marginBottom: '3.5rem',
+            marginBottom: '3rem',
             width: '100%',
           }}
         >
           {SENTENCES.map((sentence, i) => {
-            const revealed   = i <= revealedCount
-            const isCurrent  = i === revealedCount
-            const isEnded    = revealedCount >= SENTENCES.length
+            const revealed  = i <= revealedCount
+            const isCurrent = i === revealedCount
+            const isEnded   = revealedCount >= SENTENCES.length
             return (
               <SentenceBlock
                 key={sentence.id}
@@ -258,6 +254,60 @@ export default function SceneAbout({ navigate }) {
             )
           })}
         </div>
+
+        {/* ── Areas of Expertise ── */}
+        {showExpertise && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              width: '100%',
+              marginBottom: '3rem',
+            }}
+          >
+            <div style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.6rem',
+              color: 'rgba(201,168,76,0.5)',
+              letterSpacing: '0.32em',
+              textTransform: 'uppercase',
+              marginBottom: '1.2rem',
+              textAlign,
+            }}>
+              Areas of Expertise
+            </div>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.6rem',
+              justifyContent: isMobile ? 'flex-start' : 'center',
+            }}>
+              {EXPERTISE.map((item, i) => (
+                <motion.span
+                  key={item}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: isMobile ? '0.65rem' : '0.68rem',
+                    color: 'var(--gold)',
+                    letterSpacing: '0.1em',
+                    padding: '0.38rem 0.9rem',
+                    border: '1px solid rgba(201,168,76,0.25)',
+                    borderRadius: '4px',
+                    background: 'rgba(201,168,76,0.05)',
+                    backdropFilter: 'blur(8px)',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* ── Signature ── */}
         {showSignature && (
@@ -363,10 +413,12 @@ function SentenceBlock({ sentence, revealed, isCurrent, isEnded, isMobile }) {
   const opacity = !revealed
     ? 0
     : isEnded
-      ? 0.45          // reading phase over — dim all, signature is focal point
+      ? 0.45
       : isCurrent
-        ? 1           // spotlight: freshly revealed sentence
-        : 0.44        // already read — step back
+        ? 1
+        : 0.44
+
+  const isQuote = sentence.quote === true
 
   return (
     <motion.p
@@ -379,14 +431,17 @@ function SentenceBlock({ sentence, revealed, isCurrent, isEnded, isMobile }) {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       style={{
         fontFamily: 'var(--font-serif)',
+        fontStyle: isQuote ? 'italic' : 'normal',
         fontSize: isMobile
-          ? 'clamp(1.05rem, 4.2vw, 1.18rem)'
-          : 'clamp(1.15rem, 1.85vw, 1.32rem)',
-        lineHeight: 1.82,
+          ? (isQuote ? 'clamp(1.1rem, 4.5vw, 1.28rem)' : 'clamp(1.05rem, 4.2vw, 1.18rem)')
+          : (isQuote ? 'clamp(1.22rem, 2vw, 1.45rem)' : 'clamp(1.15rem, 1.85vw, 1.32rem)'),
+        lineHeight: isQuote ? 1.72 : 1.82,
         color: 'var(--white)',
         fontWeight: 300,
-        letterSpacing: '0.015em',
+        letterSpacing: isQuote ? '0.01em' : '0.015em',
         margin: 0,
+        paddingLeft: isQuote && !isMobile ? '1.4rem' : 0,
+        borderLeft: isQuote && !isMobile ? '2px solid rgba(201,168,76,0.3)' : 'none',
         willChange: 'opacity, transform, filter',
       }}
     >
