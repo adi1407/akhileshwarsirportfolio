@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import SceneIntro    from './components/scenes/SceneIntro.jsx'
 import SceneHero     from './components/scenes/SceneHero.jsx'
 import SceneAbout    from './components/scenes/SceneAbout.jsx'
+import SceneEducation from './components/scenes/SceneEducation.jsx'
 import SceneMilestone from './components/scenes/SceneMilestone.jsx'
 import SceneAwards   from './components/scenes/SceneAwards.jsx'
 import SceneBlogs    from './components/scenes/SceneBlogs.jsx'
@@ -29,8 +30,9 @@ function findScrollableParent(el) {
 const SCENES = [
   { id: 'intro',     label: 'Intro',     Component: SceneIntro },
   { id: 'hero',      label: 'Identity',  Component: SceneHero },
-  { id: 'about',     label: 'Story',     Component: SceneAbout },
-  { id: 'journey',   label: 'Journey',   Component: SceneMilestone },
+  { id: 'about',       label: 'Story',       Component: SceneAbout },
+  { id: 'foundations', label: 'Foundations', Component: SceneEducation },
+  { id: 'journey',     label: 'Journey',     Component: SceneMilestone },
   { id: 'awards',    label: 'Honours',   Component: SceneAwards },
   { id: 'blogs',     label: 'Thoughts',  Component: SceneBlogs },
   { id: 'iui',       label: 'IUI',       Component: SceneIUI },

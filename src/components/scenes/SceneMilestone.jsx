@@ -162,7 +162,7 @@ export default function SceneMilestone({ navigate }) {
                 marginBottom: '0.35rem',
               }}
             >
-              03&nbsp;&nbsp;/&nbsp;&nbsp;Journey
+              04&nbsp;&nbsp;/&nbsp;&nbsp;Journey
             </motion.div>
             <motion.div
               initial={{ opacity: 0 }}
@@ -491,7 +491,7 @@ export default function SceneMilestone({ navigate }) {
                 marginBottom: '0.45rem',
               }}
             >
-              03 / Journey
+              04 / Journey
             </div>
             <div
               style={{
@@ -580,7 +580,7 @@ export default function SceneMilestone({ navigate }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: isMobile ? 0.6 : 2.8, duration: 0.8 }}
-        onClick={() => navigate(4)}
+        onClick={() => navigate(5)}
         style={{
           position: 'fixed',
           bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.4rem)',
