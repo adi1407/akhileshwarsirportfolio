@@ -21,9 +21,9 @@
   --gold-dim: #8a6f2e;
   --gold-mist: rgba(201, 168, 76, 0.08);
   --white: #f5f0e8;
-  --white-dim: rgba(245, 240, 232, 0.7);
-  --white-muted: rgba(245, 240, 232, 0.4);
-  --white-ghost: rgba(245, 240, 232, 0.12);
+  --white-dim: rgba(245, 240, 232, 0.88);
+  --white-muted: rgba(245, 240, 232, 0.62);
+  --white-ghost: rgba(245, 240, 232, 0.14);
 
   /* Fonts */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -37,8 +37,8 @@
   --ease-confident: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 
   /* Glass */
-  --glass-bg: rgba(14, 14, 22, 0.7);
-  --glass-border: rgba(201, 168, 76, 0.15);
+  --glass-bg: rgba(10, 8, 4, 0.78);
+  --glass-border: rgba(201, 168, 76, 0.22);
   --glass-blur: blur(20px);
 
   /* Typography scale */
