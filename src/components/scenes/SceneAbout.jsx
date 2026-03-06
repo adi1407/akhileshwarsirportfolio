@@ -302,8 +302,8 @@ export default function SceneAbout({ navigate }) {
         )}
       </div>
 
-      {/* ── Continue indicator ── */}
-      {showSignature && (
+      {/* ── Continue indicator (desktop only) ── */}
+      {showSignature && !isMobile && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

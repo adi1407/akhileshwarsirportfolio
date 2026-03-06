@@ -124,7 +124,7 @@ export default function SceneEducation({ navigate }) {
         <CredentialsSection isMobile={isMobile} isTablet={isTablet} />
         <PsychologySection isMobile={isMobile} isTablet={isTablet} />
         <PillarsSection isMobile={isMobile} isTablet={isTablet} />
-        <ContinueBtn navigate={navigate} />
+        {!isMobile && <ContinueBtn navigate={navigate} />}
 
       </div>
     </div>

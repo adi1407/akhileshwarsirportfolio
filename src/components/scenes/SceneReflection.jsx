@@ -268,12 +268,12 @@ export default function SceneReflection({ navigate }) {
         </motion.div>
       </div>
 
-      {/* ── Continue indicator — absolutely anchored to bottom ── */}
-      <motion.div
+      {/* ── Continue indicator — desktop only ── */}
+      {!isMobile && <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: navDelay, duration: 0.9 }}
-        onClick={() => navigate(9)}
+        onClick={() => navigate(11)}
         style={{
           position: 'absolute',
           bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.4rem)',
@@ -317,7 +317,7 @@ export default function SceneReflection({ navigate }) {
             />
           </svg>
         </motion.div>
-      </motion.div>
+      </motion.div>}
     </div>
   )
 }
