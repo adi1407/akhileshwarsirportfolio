@@ -14,6 +14,18 @@ import SceneContact    from './components/scenes/SceneContact.jsx'
 import SceneNav      from './components/ui/SceneNav.jsx'
 import SceneMap      from './components/ui/SceneMap.jsx'
 
+// Walk up the DOM to find the nearest vertically scrollable ancestor
+function findScrollableParent(el) {
+  while (el && el !== document.body) {
+    const { overflowY } = window.getComputedStyle(el)
+    if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
+      return el
+    }
+    el = el.parentElement
+  }
+  return null
+}
+
 const SCENES = [
   { id: 'intro',     label: 'Intro',     Component: SceneIntro },
   { id: 'hero',      label: 'Identity',  Component: SceneHero },
@@ -33,9 +45,10 @@ export default function App() {
   const [direction, setDir]   = useState(1)
   const [mapOpen, setMapOpen] = useState(false)
   const [transitioning, setTransitioning] = useState(false)
-  const touchStartY = useRef(null)
-  const touchStartX = useRef(null)
-  const wheelLock   = useRef(false)
+  const touchStartY      = useRef(null)
+  const touchStartX      = useRef(null)
+  const touchStartTarget = useRef(null)
+  const wheelLock        = useRef(false)
 
   const navigate = useCallback((idx) => {
     if (transitioning) return
@@ -82,25 +95,45 @@ export default function App() {
   // Touch/swipe navigation (disabled while intro is showing)
   useEffect(() => {
     const onTouchStart = (e) => {
-      touchStartY.current = e.touches[0].clientY
-      touchStartX.current = e.touches[0].clientX
+      touchStartY.current      = e.touches[0].clientY
+      touchStartX.current      = e.touches[0].clientX
+      touchStartTarget.current = e.touches[0].target
     }
     const onTouchEnd = (e) => {
       if (current === 0) return
-      if (!touchStartY.current) return
-      const dy = touchStartY.current - e.changedTouches[0].clientY
-      const dx = touchStartX.current - e.changedTouches[0].clientX
-      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) {
-        if (dy > 0) navigate(current + 1)
-        else        navigate(current - 1)
+      if (touchStartY.current === null) return
+      const dy    = touchStartY.current - e.changedTouches[0].clientY
+      const dx    = touchStartX.current - e.changedTouches[0].clientX
+      const absdy = Math.abs(dy)
+      const absdx = Math.abs(dx)
+      touchStartY.current      = null
+      touchStartX.current      = null
+      touchStartTarget.current = null
+
+      if (absdx > absdy && absdx > 50) {
+        // Horizontal swipe: right → next, left → previous
+        if (dx < 0) navigate(current + 1)   // finger moved right
+        else        navigate(current - 1)   // finger moved left
+      } else if (absdy > absdx && absdy > 80) {
+        // Vertical swipe: only navigate when the scene is at its scroll boundary
+        const scrollable = findScrollableParent(e.changedTouches[0].target)
+        if (scrollable) {
+          const { scrollTop, scrollHeight, clientHeight } = scrollable
+          const atBottom = scrollTop + clientHeight >= scrollHeight - 10
+          const atTop    = scrollTop <= 10
+          if (dy > 0 && atBottom) navigate(current + 1)
+          else if (dy < 0 && atTop) navigate(current - 1)
+        } else {
+          if (dy > 0) navigate(current + 1)
+          else        navigate(current - 1)
+        }
       }
-      touchStartY.current = null
     }
     window.addEventListener('touchstart', onTouchStart, { passive: true })
-    window.addEventListener('touchend', onTouchEnd, { passive: true })
+    window.addEventListener('touchend',   onTouchEnd,   { passive: true })
     return () => {
       window.removeEventListener('touchstart', onTouchStart)
-      window.removeEventListener('touchend', onTouchEnd)
+      window.removeEventListener('touchend',   onTouchEnd)
     }
   }, [current, navigate])
 
