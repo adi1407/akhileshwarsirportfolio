@@ -198,7 +198,7 @@ export default function SceneReflection({ navigate }) {
             display: 'flex', flexDirection: 'column',
             gap: '0.5rem',
             marginBottom: '2.2rem',
-            maxWidth: isMobile ? '100%' : '510px',
+            maxWidth: isMobile ? '100%' : '640px',
           }}
         >
           {QUOTE_LINES.map((line, i) => {
@@ -214,10 +214,10 @@ export default function SceneReflection({ navigate }) {
                   fontStyle: 'italic',
                   fontSize: isMobile
                     ? 'clamp(0.95rem, 3.8vw, 1.05rem)'
-                    : 'clamp(1rem, 1.65vw, 1.18rem)',
-                  color: 'rgba(245,240,232,0.7)',
+                    : 'clamp(1.15rem, 1.9vw, 1.42rem)',
+                  color: isMobile ? 'rgba(245,240,232,0.78)' : 'rgba(245,240,232,0.93)',
                   lineHeight: 1.82,
-                  fontWeight: 300,
+                  fontWeight: isMobile ? 300 : 400,
                   letterSpacing: '0.01em',
                   margin: 0,
                 }}
@@ -243,8 +243,8 @@ export default function SceneReflection({ navigate }) {
             style={{
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
-              fontSize: 'clamp(0.92rem, 1.55vw, 1.05rem)',
-              color: 'rgba(245,240,232,0.48)',
+              fontSize: isMobile ? 'clamp(0.92rem, 1.55vw, 1.05rem)' : 'clamp(1rem, 1.65vw, 1.18rem)',
+              color: isMobile ? 'rgba(245,240,232,0.52)' : 'rgba(245,240,232,0.72)',
               letterSpacing: '0.04em',
             }}
           >

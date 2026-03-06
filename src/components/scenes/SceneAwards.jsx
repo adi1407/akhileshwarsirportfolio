@@ -21,24 +21,6 @@ const AWARDS_STATIC = [
     description: 'Awarded for building interoperability infrastructure connecting 12 disparate EHR systems, enabling seamless longitudinal patient records for the first time across a regional health network.',
     accentColor: '#d4af37',
   },
-  {
-    _id: '3',
-    title: 'Product Design of the Year',
-    year: '2022',
-    organization: 'Health UX Foundation',
-    category: 'DESIGN',
-    description: 'Honored for redesigning the clinical documentation experience, reducing physician charting time by 38% while improving note completeness and regulatory compliance scores.',
-    accentColor: '#c9a84c',
-  },
-  {
-    _id: '4',
-    title: 'Top 40 Under 40 in Health Tech',
-    year: '2021',
-    organization: 'HealthTech Magazine',
-    category: 'LEADERSHIP',
-    description: 'Named among the most influential young leaders transforming health technology — recognized for technical contributions and thought leadership in responsible AI deployment.',
-    accentColor: '#e8c96a',
-  },
 ]
 
 // ─── Award SVG icons ─────────────────────────────────────────
