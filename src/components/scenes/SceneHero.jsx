@@ -593,47 +593,6 @@ export default function SceneHero({ navigate }) {
         </motion.div>
       </div>
 
-      {/* ── Scroll indicator (desktop only) ── */}
-      {!isMobile && <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.7, duration: 0.8 }}
-        style={{
-          position: 'absolute',
-          bottom: 'max(env(safe-area-inset-bottom, 0px) + 1.4rem, 1.4rem)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '0.5rem',
-          pointerEvents: 'none',
-        }}
-      >
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.6rem',
-          color: 'rgba(245,240,232,0.28)',
-          letterSpacing: '0.4em',
-          textTransform: 'uppercase',
-        }}>
-          Explore
-        </span>
-        <motion.div
-          animate={{ y: [0, 7, 0], opacity: [0.3, 0.7, 0.3] }}
-          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
-        >
-          <div style={{
-            width: '1px', height: '28px',
-            background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.5))',
-          }} />
-          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
-            <path d="M1 1l3 3 3-3" stroke="rgba(201,168,76,0.5)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </motion.div>
-      </motion.div>}
 
     </div>
   )

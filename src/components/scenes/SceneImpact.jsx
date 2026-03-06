@@ -39,7 +39,7 @@ function useReveal(amount = 0.15) {
 }
 
 // ─── Main ─────────────────────────────────────────────────
-export default function SceneImpact({ navigate }) {
+export default function SceneImpact() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
   const scrollRef = useRef(null)
@@ -521,8 +521,6 @@ function VisionSection({ isMobile, isTablet, navigate }) {
         ))}
       </div>
 
-      {/* Continue — desktop only */}
-      {!isMobile && <DesktopContinue navigate={navigate} tilesInView={tilesRef.inView} />}
     </div>
   )
 }
@@ -620,43 +618,3 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
   )
 }
 
-function DesktopContinue({ navigate, tilesInView }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={tilesInView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.85, delay: 0.8 }}
-      onClick={() => navigate(6)}
-      style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-        gap: '0.4rem', cursor: 'pointer',
-        marginTop: '4rem', paddingBottom: '1rem',
-      }}
-    >
-      <span style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.58rem',
-        color: 'rgba(245,240,232,0.28)',
-        letterSpacing: '0.38em',
-        textTransform: 'uppercase',
-        userSelect: 'none',
-      }}>
-        Continue
-      </span>
-      <motion.div
-        animate={{ y: [0, 6, 0], opacity: [0.22, 0.55, 0.22] }}
-        transition={{ repeat: Infinity, duration: 2.3, ease: 'easeInOut' }}
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
-      >
-        <div style={{
-          width: '1px', height: '28px',
-          background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.5))',
-        }} />
-        <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
-          <path d="M1 1l3 3 3-3" stroke="rgba(201,168,76,0.5)"
-            strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </motion.div>
-    </motion.div>
-  )
-}

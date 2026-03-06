@@ -16,7 +16,7 @@ const QUOTE_LINES = [
 
 // ─── Main component ─────────────────────────────────────────
 
-export default function SceneReflection({ navigate }) {
+export default function SceneReflection() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
   const [imgError, setImgError]  = useState(false)
@@ -72,7 +72,6 @@ export default function SceneReflection({ navigate }) {
   // Stagger delay for each quote line (after image settles at ~1.5s)
   const lineDelay = (i) => 1.7 + i * 0.2
   const authorDelay = lineDelay(QUOTE_LINES.length) + 0.25
-  const navDelay    = authorDelay + 1.1
 
   return (
     <div
@@ -268,56 +267,6 @@ export default function SceneReflection({ navigate }) {
         </motion.div>
       </div>
 
-      {/* ── Continue indicator — desktop only ── */}
-      {!isMobile && <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: navDelay, duration: 0.9 }}
-        onClick={() => navigate(11)}
-        style={{
-          position: 'absolute',
-          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.4rem)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
-          cursor: 'pointer',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.57rem',
-            color: 'rgba(245,240,232,0.24)',
-            letterSpacing: '0.32em',
-            textTransform: 'uppercase',
-            userSelect: 'none',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Let's Continue the Conversation
-        </span>
-        <motion.div
-          animate={{ y: [0, 6, 0], opacity: [0.22, 0.52, 0.22] }}
-          transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
-        >
-          <div
-            style={{
-              width: '1px', height: '24px',
-              background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.4))',
-            }}
-          />
-          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
-            <path
-              d="M1 1l3 3 3-3"
-              stroke="rgba(201,168,76,0.4)"
-              strokeWidth="1.2"
-              strokeLinecap="round" strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
-      </motion.div>}
     </div>
   )
 }

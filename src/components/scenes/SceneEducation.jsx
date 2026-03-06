@@ -60,7 +60,7 @@ const vFadeInView = (inView, delay = 0) => ({
 })
 
 // ─── Main ─────────────────────────────────────────────────
-export default function SceneEducation({ navigate }) {
+export default function SceneEducation() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
 
@@ -124,7 +124,6 @@ export default function SceneEducation({ navigate }) {
         <CredentialsSection isMobile={isMobile} isTablet={isTablet} />
         <PsychologySection isMobile={isMobile} isTablet={isTablet} />
         <PillarsSection isMobile={isMobile} isTablet={isTablet} />
-        {!isMobile && <ContinueBtn navigate={navigate} />}
 
       </div>
     </div>
@@ -595,49 +594,3 @@ function PillarCard({ pillar, isMobile, isTablet }) {
   )
 }
 
-// ══════════════════════════════════════════════════════════
-//  CONTINUE
-// ══════════════════════════════════════════════════════════
-function ContinueBtn({ navigate }) {
-  const { ref, inView } = useReveal(0.5)
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.85, delay: 0.3 }}
-      onClick={() => navigate(4)}
-      style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-        gap: '0.4rem', cursor: 'pointer',
-        marginTop: '4rem', paddingBottom: '1rem',
-      }}
-    >
-      <span style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.58rem',
-        color: 'rgba(245,240,232,0.28)',
-        letterSpacing: '0.38em',
-        textTransform: 'uppercase',
-        userSelect: 'none',
-      }}>
-        Continue Journey
-      </span>
-      <motion.div
-        animate={{ y: [0, 6, 0], opacity: [0.22, 0.55, 0.22] }}
-        transition={{ repeat: Infinity, duration: 2.3, ease: 'easeInOut' }}
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
-      >
-        <div style={{
-          width: '1px', height: '28px',
-          background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.5))',
-        }} />
-        <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
-          <path d="M1 1l3 3 3-3" stroke="rgba(201,168,76,0.5)"
-            strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </motion.div>
-    </motion.div>
-  )
-}

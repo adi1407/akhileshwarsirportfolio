@@ -463,7 +463,7 @@ function PlaqueCard({ award, relIdx, onClick, prefersReduced, isMobile, isReveal
 }
 
 // ─── Main scene ───────────────────────────────────────────────
-export default function SceneAwards({ navigate }) {
+export default function SceneAwards() {
   const prefersReduced = useReducedMotion()
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
@@ -891,39 +891,6 @@ export default function SceneAwards({ navigate }) {
         </>
       )}
 
-      {/* ── Continue indicator (desktop only) ── */}
-      {!isMobile && <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.4, duration: 0.8 }}
-        onClick={() => navigate(7)}
-        style={{
-          position: 'fixed',
-          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.4rem)',
-          left: '50%', transform: 'translateX(-50%)',
-          zIndex: 10,
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
-          cursor: 'pointer',
-        }}
-      >
-        <span style={{
-          fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
-          color: 'rgba(245,240,232,0.22)',
-          letterSpacing: '0.38em', textTransform: 'uppercase', userSelect: 'none',
-        }}>
-          Read the Thoughts
-        </span>
-        <motion.div
-          animate={{ y: [0, 6, 0], opacity: [0.2, 0.5, 0.2] }}
-          transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
-        >
-          <div style={{ width: '1px', height: '24px', background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.38))' }} />
-          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
-            <path d="M1 1l3 3 3-3" stroke="rgba(201,168,76,0.38)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.div>
-      </motion.div>}
 
       {/* ── Examination modal ── */}
       <AnimatePresence>
