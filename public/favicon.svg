@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#0e0c03"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </linearGradient>
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e8c96a"/>
+      <stop offset="50%"  stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#a8882e"/>
+    </linearGradient>
+    <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e8c96a" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.3"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="10" fill="url(#bg-grad)"/>
+
+  <!-- Outer border -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="9" fill="none"
+        stroke="url(#border-grad)" stroke-width="0.8"/>
+
+  <!-- Inner corner accents -->
+  <line x1="6"  y1="6"  x2="12" y2="6"  stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="6"  y1="6"  x2="6"  y2="12" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="58" y1="6"  x2="52" y2="6"  stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="58" y1="6"  x2="58" y2="12" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="6"  y1="58" x2="12" y2="58" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="6"  y1="58" x2="6"  y2="52" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="58" y1="58" x2="52" y2="58" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+  <line x1="58" y1="58" x2="58" y2="52" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.5"/>
+
+  <!-- AKS text -->
+  <text
+    x="32" y="39"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="20"
+    font-weight="400"
+    font-style="italic"
+    text-anchor="middle"
+    fill="url(#gold-grad)"
+    filter="url(#glow)"
+    letter-spacing="2"
+  >AKS</text>
+
+  <!-- Decorative line under text -->
+  <line x1="16" y1="44" x2="48" y2="44"
+        stroke="url(#gold-grad)" stroke-width="0.6" stroke-opacity="0.55"/>
+</svg>

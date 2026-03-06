@@ -128,7 +128,8 @@ function SocialIcon({ s, delay }) {
 // ──────────────────────────────────────────────────────────
 export default function SceneHero({ navigate }) {
   const prefersReduced = useReducedMotion()
-  const isMobile = window.innerWidth < 768
+  const isMobile     = window.innerWidth  < 768
+  const isSmallPhone = window.innerHeight < 700
 
   const textColRef  = useRef(null)
   const portraitRef = useRef(null)
@@ -181,8 +182,8 @@ export default function SceneHero({ navigate }) {
     }
   }, [isMobile, prefersReduced])
 
-  const portraitW = isMobile ? 'min(240px, 65vw)' : 'min(340px, 30vw)'
-  const portraitH = isMobile ? 'min(300px, 80vw)' : 'min(440px, 62vh)'
+  const portraitW = isMobile ? 'min(160px, 44vw)' : 'min(340px, 30vw)'
+  const portraitH = isMobile ? 'min(130px, 36vw)' : 'min(440px, 62vh)'
 
   return (
     <div
@@ -233,9 +234,9 @@ export default function SceneHero({ navigate }) {
           alignItems: 'center',
           width: '100%',
           height: '100%',
-          padding: isMobile ? '3rem 1.5rem 7rem' : '0 5% 0 7%',
-          gap: isMobile ? '2rem' : '3rem',
-          overflowY: isMobile ? 'auto' : 'visible',
+          padding: isMobile ? '1.5rem 1.2rem 3rem' : '0 5% 0 7%',
+          gap: isMobile ? '1rem' : '3rem',
+          overflow: 'hidden',
         }}
       >
 
@@ -261,7 +262,7 @@ export default function SceneHero({ navigate }) {
               color: 'var(--gold)',
               letterSpacing: '0.45em',
               textTransform: 'uppercase',
-              marginBottom: '1.8rem',
+              marginBottom: isMobile ? '0.7rem' : '1.8rem',
             }}
           >
             01&nbsp;&nbsp;/&nbsp;&nbsp;Portfolio
@@ -336,10 +337,10 @@ export default function SceneHero({ navigate }) {
             transition={{ duration: 0.55, delay: 1.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
               height: '1px',
-              width: isMobile ? '60%' : '75%',
+              width: isMobile ? '50%' : '75%',
               background: 'linear-gradient(90deg, rgba(201,168,76,0.7), rgba(201,168,76,0.2), transparent)',
-              marginTop: '0.6rem',
-              marginBottom: '2rem',
+              marginTop: isMobile ? '0.3rem' : '0.6rem',
+              marginBottom: isMobile ? '0.8rem' : '2rem',
               transformOrigin: 'left center',
               alignSelf: isMobile ? 'center' : 'flex-start',
             }}
@@ -358,7 +359,8 @@ export default function SceneHero({ navigate }) {
               letterSpacing: '0.03em',
               lineHeight: 1.6,
               maxWidth: '420px',
-              marginBottom: '2.5rem',
+              marginBottom: isMobile ? '1rem' : '2.5rem',
+              display: isSmallPhone ? 'none' : 'block',
             }}
           >
             Designing intelligent digital ecosystems<br />
@@ -370,7 +372,7 @@ export default function SceneHero({ navigate }) {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
-            style={{ marginBottom: '2.5rem' }}
+            style={{ marginBottom: isMobile ? '1rem' : '2.5rem' }}
           >
             <MagneticButton onClick={() => navigate(2)}>
               Begin the Journey
