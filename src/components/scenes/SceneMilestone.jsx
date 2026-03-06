@@ -7,50 +7,34 @@ import ThreeAmbient from '../three/ThreeAmbient.jsx'
 // The SVG uses preserveAspectRatio="none", so x% = left%, y% = top%
 const MILESTONES = [
   {
-    year: '2019',
-    title: 'Healthcare Venture A',
-    role: 'Founder & CEO',
-    desc: 'Founded a digital health startup focused on patient engagement. Secured seed funding and launched MVP serving regional hospitals across two states.',
-    x: 14, y: 22, side: 'left',
+    era: 'Early Career',
+    title: 'Foundations in Finance & Insurance',
+    phase: 'Risk · Compliance · Healthcare Financing',
+    desc: 'Launched in the insurance sector, building mastery in risk assessment, regulatory compliance, and healthcare financing — the structural backbone of everything built thereafter.',
+    x: 14, y: 28, side: 'left',
   },
   {
-    year: '2020',
-    title: 'Product Studio B',
-    role: 'Creative Director',
-    desc: 'Built a product studio specializing in clinical UX. Partnered with enterprise clients to redesign healthcare workflows and significantly reduce physician burnout.',
-    x: 82, y: 38, side: 'right',
+    era: 'Mid Career',
+    title: 'Hospital Administration',
+    phase: 'Operations · Patient Care · Leadership',
+    desc: 'Transitioned into hospital leadership, overseeing complex operations, redesigning patient pathways, and championing cultures of accountability, efficiency, and genuine compassion.',
+    x: 82, y: 52, side: 'right',
   },
   {
-    year: '2021',
-    title: 'Technology Initiative C',
-    role: 'Technical Lead',
-    desc: 'Led an interoperability initiative connecting disparate health systems across a four-state region. Over 2 million patient records unified in the first year of operation.',
-    x: 14, y: 54, side: 'left',
-  },
-  {
-    year: '2022',
-    title: 'Healthcare Innovation Lab',
-    role: 'Founder',
-    desc: 'Established an enterprise-grade technology lab for healthcare organizations — built security-first architecture and compliance by design at its foundation.',
-    x: 82, y: 70, side: 'right',
-  },
-  {
-    year: '2023',
-    title: 'Global Health Expansion',
-    role: 'CEO & Visionary',
-    desc: 'Expanded operations internationally, bringing next-generation health technology infrastructure to emerging healthcare systems and markets worldwide.',
-    x: 14, y: 84, side: 'left',
+    era: 'Today',
+    title: 'Founding a Healthcare Platform',
+    phase: 'RCM · Operations · Reproductive Care',
+    desc: 'Channels three decades of expertise into a platform built for healthcare providers navigating a rapidly changing landscape, advancing RCM, operations, and reproductive care.',
+    x: 14, y: 76, side: 'left',
   },
 ]
 
 // Zig-zag cubic Bezier path in viewBox "0 0 100 100"
-// Each curve: C cp1x,cp1y cp2x,cp2y ex,ey
-// Control points are mirrored at each node → smooth S-curves
 const PATH_D =
-  'M 14,22 C 48,22 48,38 82,38 C 48,38 48,54 14,54 C 48,54 48,70 82,70 C 48,70 48,84 14,84'
+  'M 14,28 C 48,28 48,52 82,52 C 48,52 48,76 14,76'
 
 // ms from scene mount when each card appears
-const REVEAL_AT = [500, 1200, 1900, 2600, 3300]
+const REVEAL_AT = [500, 1400, 2300]
 
 // ─── Main component ─────────────────────────────────────────
 export default function SceneMilestone({ navigate }) {
@@ -263,7 +247,7 @@ export default function SceneMilestone({ navigate }) {
             {/* Traveling indicator dot */}
             <circle
               ref={dotRef}
-              cx={14} cy={22}
+              cx={14} cy={28}
               r="1.1"
               fill="rgba(201,168,76,1)"
               opacity="0"
@@ -418,7 +402,7 @@ export default function SceneMilestone({ navigate }) {
                             }}
                           />
 
-                          {/* Year */}
+                          {/* Era */}
                           <div
                             style={{
                               fontFamily: 'var(--font-mono)',
@@ -429,7 +413,7 @@ export default function SceneMilestone({ navigate }) {
                               marginBottom: '0.45rem',
                             }}
                           >
-                            {m.year}
+                            {m.era}
                           </div>
 
                           {/* Title */}
@@ -446,7 +430,7 @@ export default function SceneMilestone({ navigate }) {
                             {m.title}
                           </div>
 
-                          {/* Role badge */}
+                          {/* Phase badge */}
                           <div
                             style={{
                               fontFamily: 'var(--font-mono)',
@@ -457,7 +441,7 @@ export default function SceneMilestone({ navigate }) {
                               marginBottom: '0.7rem',
                             }}
                           >
-                            {m.role}
+                            {m.phase}
                           </div>
 
                           {/* Description */}
@@ -573,13 +557,13 @@ export default function SceneMilestone({ navigate }) {
                     background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent)',
                   }} />
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.63rem', color: 'var(--gold)', letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
-                    {m.year}
+                    {m.era}
                   </div>
                   <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1rem', fontWeight: 300, color: 'var(--white)', marginBottom: '0.2rem' }}>
                     {m.title}
                   </div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.56rem', color: 'rgba(201,168,76,0.55)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
-                    {m.role}
+                    {m.phase}
                   </div>
                   <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.78rem', color: 'var(--white-muted)', lineHeight: 1.6, fontWeight: 300, margin: 0 }}>
                     {m.desc}
@@ -595,7 +579,7 @@ export default function SceneMilestone({ navigate }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: isMobile ? 0.6 : 3.8, duration: 0.8 }}
+        transition={{ delay: isMobile ? 0.6 : 2.8, duration: 0.8 }}
         onClick={() => navigate(4)}
         style={{
           position: 'fixed',
