@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 // ─── Social links ──────────────────────────────────────────
@@ -40,6 +40,31 @@ const SOCIALS = [
     ),
   },
 ]
+
+// ─── Stats ──────────────────────────────────────────────────
+const STATS = [
+  { value: 30, suffix: '+', label: 'Years Experience' },
+  { value: 4,  suffix: '',  label: 'Sectors Mastered' },
+  { value: 1,  suffix: '',  label: 'Defining Vision'  },
+]
+
+function CountUp({ target, suffix = '', startDelay = 0, duration = 1.5 }) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    let raf
+    const timer = setTimeout(() => {
+      const t0 = performance.now()
+      const tick = (now) => {
+        const p = Math.min((now - t0) / (duration * 1000), 1)
+        setCount(Math.round((1 - Math.pow(1 - p, 3)) * target))
+        if (p < 1) raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+    }, startDelay * 1000)
+    return () => { clearTimeout(timer); cancelAnimationFrame(raf) }
+  }, [target, duration, startDelay])
+  return <>{count}{suffix}</>
+}
 
 // ─── Ambient particles ─────────────────────────────────────
 const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
@@ -347,6 +372,61 @@ export default function SceneHero({ navigate }) {
               alignSelf: isMobile ? 'center' : 'flex-start',
             }}
           />
+
+          {/* ── Stats row ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.65, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: 'flex',
+              alignSelf: isMobile ? 'center' : 'flex-start',
+              marginBottom: isMobile ? '0.8rem' : '2rem',
+            }}
+          >
+            {STATS.map((stat, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'stretch' }}>
+                {i > 0 && (
+                  <div style={{
+                    width: '1px',
+                    alignSelf: 'stretch',
+                    background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.4), transparent)',
+                    margin: `0 ${isMobile ? '0.9rem' : '1.4rem'}`,
+                  }} />
+                )}
+                <div style={{ textAlign: isMobile ? 'center' : 'left' }}>
+                  <div style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontStyle: 'italic',
+                    fontSize: isMobile ? 'clamp(1.7rem, 7vw, 2.1rem)' : 'clamp(2.4rem, 3.4vw, 3.2rem)',
+                    fontWeight: 300,
+                    lineHeight: 1,
+                    color: 'var(--gold-bright)',
+                    textShadow: '0 0 40px rgba(232,201,106,0.5), 0 0 80px rgba(201,168,76,0.2)',
+                    letterSpacing: '-0.01em',
+                  }}>
+                    <CountUp
+                      target={stat.value}
+                      suffix={stat.suffix}
+                      startDelay={1.9 + i * 0.2}
+                      duration={1.5}
+                    />
+                  </div>
+                  <div style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: isMobile ? '0.52rem' : '0.6rem',
+                    color: 'rgba(245,240,232,0.52)',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    marginTop: '0.35rem',
+                    lineHeight: 1.3,
+                  }}>
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
 
           {/* Tagline */}
           <motion.p
