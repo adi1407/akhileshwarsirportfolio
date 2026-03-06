@@ -4,7 +4,7 @@ import ThreeAmbient from '../three/ThreeAmbient.jsx'
 
 // ─── Config ─────────────────────────────────────────────────
 
-const EMAIL  = 'contact@iuis.in'
+const EMAIL  = 'founder@iuis.in'
 const MAILTO = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${encodeURIComponent('Hello Akhileshwar K Singh')}`
 
 const SOCIALS = [

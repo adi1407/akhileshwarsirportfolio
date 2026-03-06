@@ -52,7 +52,7 @@ const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
 }))
 
 // ─── Magnetic CTA button ────────────────────────────────────
-function MagneticButton({ children, onClick }) {
+function MagneticButton({ children, onClick, compact }) {
   const ref = useRef(null)
   const onMove = (e) => {
     const r = ref.current.getBoundingClientRect()
@@ -71,7 +71,7 @@ function MagneticButton({ children, onClick }) {
       ref={ref}
       className="btn-primary"
       onClick={onClick}
-      style={{ transition: 'transform 0.12s', fontSize: 'var(--text-sm)', letterSpacing: '0.2em', padding: '0.9rem 2.8rem' }}
+      style={{ transition: 'transform 0.12s', fontSize: 'var(--text-sm)', letterSpacing: '0.18em', padding: compact ? '0.65rem 1.2rem' : '0.9rem 2.8rem' }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
@@ -182,8 +182,8 @@ export default function SceneHero({ navigate }) {
     }
   }, [isMobile, prefersReduced])
 
-  const portraitW = isMobile ? 'min(210px, 56vw)' : 'min(340px, 30vw)'
-  const portraitH = isMobile ? 'min(190px, 52vw)' : 'min(440px, 62vh)'
+  const portraitW = isMobile ? '100%' : 'min(340px, 30vw)'
+  const portraitH = isMobile ? '100%' : 'min(440px, 62vh)'
 
   return (
     <div
@@ -230,12 +230,12 @@ export default function SceneHero({ navigate }) {
         style={{
           position: 'relative', zIndex: 2,
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          alignItems: 'center',
+          gridTemplateColumns: isMobile ? '5fr 7fr' : '1fr 1fr',
+          alignItems: isMobile ? 'stretch' : 'center',
           width: '100%',
           height: '100%',
-          padding: isMobile ? '1.5rem 1.2rem 3rem' : '0 5% 0 7%',
-          gap: isMobile ? '1rem' : '3rem',
+          padding: isMobile ? '1.5rem 1rem 3rem' : '0 5% 0 7%',
+          gap: isMobile ? '0.8rem' : '3rem',
           overflow: 'hidden',
         }}
       >
@@ -245,8 +245,9 @@ export default function SceneHero({ navigate }) {
           ref={textColRef}
           style={{
             display: 'flex', flexDirection: 'column',
-            alignItems: isMobile ? 'center' : 'flex-start',
-            textAlign: isMobile ? 'center' : 'left',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            textAlign: 'left',
             order: isMobile ? 2 : 1,
             willChange: 'transform',
           }}
@@ -277,7 +278,7 @@ export default function SceneHero({ navigate }) {
             <span style={{
               display: 'block',
               fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2rem)' : 'clamp(1.6rem, 2.4vw, 2.4rem)',
+              fontSize: isMobile ? 'clamp(0.95rem, 3.2vw, 1.3rem)' : 'clamp(1.6rem, 2.4vw, 2.4rem)',
               fontWeight: 300,
               color: 'var(--white-dim)',
               letterSpacing: '0.04em',
@@ -296,7 +297,7 @@ export default function SceneHero({ navigate }) {
             <span style={{
               display: 'block',
               fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
+              fontSize: isMobile ? 'clamp(1.3rem, 5vw, 2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
               fontWeight: 300,
               color: 'var(--white)',
               letterSpacing: '-0.01em',
@@ -318,7 +319,7 @@ export default function SceneHero({ navigate }) {
               style={{
                 display: 'block',
                 fontFamily: 'var(--font-serif)',
-                fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
+                fontSize: isMobile ? 'clamp(1.3rem, 5vw, 2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
                 fontWeight: 300,
                 fontStyle: 'italic',
                 color: 'var(--gold)',
@@ -342,7 +343,7 @@ export default function SceneHero({ navigate }) {
               marginTop: isMobile ? '0.3rem' : '0.6rem',
               marginBottom: isMobile ? '0.8rem' : '2rem',
               transformOrigin: 'left center',
-              alignSelf: isMobile ? 'center' : 'flex-start',
+              alignSelf: 'flex-start',
             }}
           />
 
@@ -359,7 +360,7 @@ export default function SceneHero({ navigate }) {
               letterSpacing: '0.03em',
               lineHeight: 1.6,
               maxWidth: '420px',
-              marginBottom: isMobile ? '1rem' : '2.5rem',
+              marginBottom: isMobile ? '0.8rem' : '2.5rem',
               display: isSmallPhone ? 'none' : 'block',
             }}
           >
@@ -374,7 +375,7 @@ export default function SceneHero({ navigate }) {
             transition={{ duration: 0.65, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
             style={{ marginBottom: isMobile ? '1rem' : '2.5rem' }}
           >
-            <MagneticButton onClick={() => navigate(2)}>
+            <MagneticButton onClick={() => navigate(2)} compact={isMobile}>
               Begin the Journey
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" style={{ marginLeft: '0.5rem' }}>
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -399,8 +400,9 @@ export default function SceneHero({ navigate }) {
             order: isMobile ? 1 : 2,
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: isMobile ? 'stretch' : 'center',
             position: 'relative',
+            height: isMobile ? '100%' : 'auto',
           }}
         >
           {/* Golden halo behind portrait */}
