@@ -575,11 +575,11 @@ export default function SceneMilestone({ navigate }) {
         </div>
       )}
 
-      {/* ── Continue indicator ── */}
-      <motion.div
+      {/* ── Continue indicator (desktop only) ── */}
+      {!isMobile && <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: isMobile ? 0.6 : 2.8, duration: 0.8 }}
+        transition={{ delay: 2.8, duration: 0.8 }}
         onClick={() => navigate(5)}
         style={{
           position: 'fixed',
@@ -623,7 +623,7 @@ export default function SceneMilestone({ navigate }) {
             />
           </svg>
         </motion.div>
-      </motion.div>
+      </motion.div>}
     </div>
   )
 }

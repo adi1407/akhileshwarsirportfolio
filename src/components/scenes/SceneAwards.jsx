@@ -909,12 +909,12 @@ export default function SceneAwards({ navigate }) {
         </>
       )}
 
-      {/* ── Continue indicator ── */}
-      <motion.div
+      {/* ── Continue indicator (desktop only) ── */}
+      {!isMobile && <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: isMobile ? 0.6 : 2.4, duration: 0.8 }}
-        onClick={() => navigate(5)}
+        transition={{ delay: 2.4, duration: 0.8 }}
+        onClick={() => navigate(7)}
         style={{
           position: 'fixed',
           bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.4rem)',
@@ -941,7 +941,7 @@ export default function SceneAwards({ navigate }) {
             <path d="M1 1l3 3 3-3" stroke="rgba(201,168,76,0.38)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </motion.div>
-      </motion.div>
+      </motion.div>}
 
       {/* ── Examination modal ── */}
       <AnimatePresence>

@@ -593,8 +593,8 @@ export default function SceneHero({ navigate }) {
         </motion.div>
       </div>
 
-      {/* ── Scroll indicator ── */}
-      <motion.div
+      {/* ── Scroll indicator (desktop only) ── */}
+      {!isMobile && <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.7, duration: 0.8 }}
@@ -633,7 +633,7 @@ export default function SceneHero({ navigate }) {
             <path d="M1 1l3 3 3-3" stroke="rgba(201,168,76,0.5)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </motion.div>
-      </motion.div>
+      </motion.div>}
 
     </div>
   )
