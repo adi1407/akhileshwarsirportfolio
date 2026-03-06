@@ -182,8 +182,8 @@ export default function SceneHero({ navigate }) {
     }
   }, [isMobile, prefersReduced])
 
-  const portraitW = isMobile ? '100%' : 'min(340px, 30vw)'
-  const portraitH = isMobile ? '100%' : 'min(440px, 62vh)'
+  const portraitW = isMobile ? 'min(230px, 62vw)' : 'min(340px, 30vw)'
+  const portraitH = isMobile ? 'min(210px, 58vw)' : 'min(440px, 62vh)'
 
   return (
     <div
@@ -230,12 +230,12 @@ export default function SceneHero({ navigate }) {
         style={{
           position: 'relative', zIndex: 2,
           display: 'grid',
-          gridTemplateColumns: isMobile ? '5fr 7fr' : '1fr 1fr',
-          alignItems: isMobile ? 'stretch' : 'center',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          alignItems: 'center',
           width: '100%',
           height: '100%',
-          padding: isMobile ? '1.5rem 1rem 3rem' : '0 5% 0 7%',
-          gap: isMobile ? '0.8rem' : '3rem',
+          padding: isMobile ? '1.5rem 1.2rem 3rem' : '0 5% 0 7%',
+          gap: isMobile ? '1rem' : '3rem',
           overflow: 'hidden',
         }}
       >
@@ -245,9 +245,8 @@ export default function SceneHero({ navigate }) {
           ref={textColRef}
           style={{
             display: 'flex', flexDirection: 'column',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            textAlign: 'left',
+            alignItems: isMobile ? 'center' : 'flex-start',
+            textAlign: isMobile ? 'center' : 'left',
             order: isMobile ? 2 : 1,
             willChange: 'transform',
           }}
@@ -278,7 +277,7 @@ export default function SceneHero({ navigate }) {
             <span style={{
               display: 'block',
               fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(0.95rem, 3.2vw, 1.3rem)' : 'clamp(1.6rem, 2.4vw, 2.4rem)',
+              fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2rem)' : 'clamp(1.6rem, 2.4vw, 2.4rem)',
               fontWeight: 300,
               color: 'var(--white-dim)',
               letterSpacing: '0.04em',
@@ -297,7 +296,7 @@ export default function SceneHero({ navigate }) {
             <span style={{
               display: 'block',
               fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(1.3rem, 5vw, 2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
+              fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
               fontWeight: 300,
               color: 'var(--white)',
               letterSpacing: '-0.01em',
@@ -319,7 +318,7 @@ export default function SceneHero({ navigate }) {
               style={{
                 display: 'block',
                 fontFamily: 'var(--font-serif)',
-                fontSize: isMobile ? 'clamp(1.3rem, 5vw, 2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
+                fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
                 fontWeight: 300,
                 fontStyle: 'italic',
                 color: 'var(--gold)',
@@ -343,7 +342,7 @@ export default function SceneHero({ navigate }) {
               marginTop: isMobile ? '0.3rem' : '0.6rem',
               marginBottom: isMobile ? '0.8rem' : '2rem',
               transformOrigin: 'left center',
-              alignSelf: 'flex-start',
+              alignSelf: isMobile ? 'center' : 'flex-start',
             }}
           />
 
@@ -400,9 +399,8 @@ export default function SceneHero({ navigate }) {
             order: isMobile ? 1 : 2,
             display: 'flex',
             justifyContent: 'center',
-            alignItems: isMobile ? 'stretch' : 'center',
+            alignItems: 'center',
             position: 'relative',
-            height: isMobile ? '100%' : 'auto',
           }}
         >
           {/* Golden halo behind portrait */}
