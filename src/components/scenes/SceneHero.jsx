@@ -102,9 +102,9 @@ function SocialIcon({ s, delay }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'rgba(245,240,232,0.5)',
+        color: 'rgba(245,240,232,0.65)',
         textDecoration: 'none',
-        background: 'rgba(201,168,76,0.04)',
+        background: 'rgba(201,168,76,0.07)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         flexShrink: 0,
@@ -194,7 +194,7 @@ export default function SceneHero({ navigate }) {
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
-        background: 'radial-gradient(ellipse 90% 70% at 60% 35%, #0e0c03 0%, #060608 50%, #000000 100%)',
+        background: 'radial-gradient(ellipse 90% 70% at 60% 35%, #1a1400 0%, #0a0808 45%, #000000 100%)',
       }}
     >
 
@@ -221,7 +221,7 @@ export default function SceneHero({ navigate }) {
       {/* ── Cinematic vignette ── */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse 100% 90% at 50% 50%, transparent 20%, rgba(0,0,0,0.55) 100%)',
+        background: 'radial-gradient(ellipse 100% 90% at 50% 50%, transparent 30%, rgba(0,0,0,0.38) 100%)',
         zIndex: 1, pointerEvents: 'none',
       }} />
 
@@ -277,10 +277,10 @@ export default function SceneHero({ navigate }) {
             <span style={{
               display: 'block',
               fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2rem)' : 'clamp(1.6rem, 2.4vw, 2.4rem)',
+              fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2rem)' : 'clamp(2rem, 3vw, 3rem)',
               fontWeight: 300,
-              color: 'var(--white-dim)',
-              letterSpacing: '0.04em',
+              color: 'var(--white)',
+              letterSpacing: '0.06em',
               lineHeight: 1.1,
             }}>
               Akhileshwar K. Singh
@@ -296,7 +296,7 @@ export default function SceneHero({ navigate }) {
             <span style={{
               display: 'block',
               fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
+              fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(3.2rem, 5vw, 5.5rem)',
               fontWeight: 300,
               color: 'var(--white)',
               letterSpacing: '-0.01em',
@@ -314,16 +314,16 @@ export default function SceneHero({ navigate }) {
             transition={{ duration: 0.65, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <span
-              className="gold-glow"
               style={{
                 display: 'block',
                 fontFamily: 'var(--font-serif)',
-                fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(2.8rem, 4vw, 4.2rem)',
+                fontSize: isMobile ? 'clamp(2rem, 9vw, 3.2rem)' : 'clamp(3.2rem, 5vw, 5.5rem)',
                 fontWeight: 300,
                 fontStyle: 'italic',
-                color: 'var(--gold)',
+                color: 'var(--gold-bright)',
                 letterSpacing: '-0.01em',
                 lineHeight: 1.0,
+                textShadow: '0 0 60px rgba(232,201,106,0.55), 0 0 120px rgba(201,168,76,0.25)',
               }}
             >
               healthcare technology.
@@ -336,9 +336,11 @@ export default function SceneHero({ navigate }) {
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.55, delay: 1.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              height: '1px',
+              height: isMobile ? '1px' : '1.5px',
               width: isMobile ? '50%' : '75%',
-              background: 'linear-gradient(90deg, rgba(201,168,76,0.7), rgba(201,168,76,0.2), transparent)',
+              background: isMobile
+                ? 'linear-gradient(90deg, rgba(201,168,76,0.7), rgba(201,168,76,0.2), transparent)'
+                : 'linear-gradient(90deg, rgba(232,201,106,0.9), rgba(201,168,76,0.45), transparent)',
               marginTop: isMobile ? '0.3rem' : '0.6rem',
               marginBottom: isMobile ? '0.8rem' : '2rem',
               transformOrigin: 'left center',
@@ -353,12 +355,12 @@ export default function SceneHero({ navigate }) {
             transition={{ duration: 0.7, delay: 1.65, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: 'var(--text-lg)',
-              color: 'var(--white-muted)',
+              fontSize: isMobile ? 'var(--text-lg)' : 'clamp(1.1rem, 1.5vw, 1.3rem)',
+              color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.72)',
               fontWeight: 300,
-              letterSpacing: '0.03em',
-              lineHeight: 1.6,
-              maxWidth: '420px',
+              letterSpacing: '0.04em',
+              lineHeight: 1.7,
+              maxWidth: '480px',
               marginBottom: isMobile ? '0.8rem' : '2.5rem',
               display: isSmallPhone ? 'none' : 'block',
             }}
@@ -412,7 +414,7 @@ export default function SceneHero({ navigate }) {
               width: '140%',
               height: '140%',
               borderRadius: '50%',
-              background: 'radial-gradient(ellipse 65% 65% at 50% 48%, rgba(201,168,76,0.14) 0%, rgba(201,168,76,0.05) 45%, transparent 70%)',
+              background: 'radial-gradient(ellipse 65% 65% at 50% 48%, rgba(201,168,76,0.28) 0%, rgba(201,168,76,0.10) 45%, transparent 70%)',
               filter: 'blur(24px)',
               pointerEvents: 'none',
               zIndex: 0,
@@ -499,7 +501,7 @@ export default function SceneHero({ navigate }) {
                 <div style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.62rem',
-                  color: 'rgba(245,240,232,0.38)',
+                  color: 'rgba(245,240,232,0.58)',
                   letterSpacing: '0.22em',
                   textTransform: 'uppercase',
                 }}>
