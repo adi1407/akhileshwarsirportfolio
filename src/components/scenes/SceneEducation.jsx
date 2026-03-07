@@ -197,8 +197,8 @@ function HeroSection({ isMobile, isTablet }) {
         <motion.p {...vUp(isMobile || isTablet ? 0.62 : 0.5)} style={{
           fontFamily: 'var(--font-sans)',
           fontStyle: 'italic',
-          fontSize: isMobile ? '0.9rem' : isTablet ? '1rem' : '1.08rem',
-          color: 'var(--white-muted)',
+          fontSize: isMobile ? '0.9rem' : isTablet ? '1rem' : '1.12rem',
+          color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.85)',
           lineHeight: 1.82,
           fontWeight: 300,
           marginTop: isMobile ? '1.8rem' : 0,
@@ -250,7 +250,7 @@ function CredentialsSection({ isMobile, isTablet }) {
         <motion.div {...vFadeInView(inView, 0)} style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '0.6rem',
-          color: 'rgba(201,168,76,0.55)',
+          color: isMobile || isTablet ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.85)',
           letterSpacing: '0.32em',
           textTransform: 'uppercase',
           whiteSpace: 'nowrap',
@@ -415,8 +415,8 @@ function PsychologySection({ isMobile, isTablet }) {
 
         <motion.p {...vUpInView(inView, 0.18)} style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: isMobile ? '0.92rem' : '1rem',
-          color: 'var(--white-muted)',
+          fontSize: isMobile ? '0.92rem' : '1.02rem',
+          color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.88)',
           lineHeight: 1.88,
           fontWeight: 300,
           margin: 0,
@@ -448,7 +448,7 @@ function PillarsSection({ isMobile, isTablet }) {
         <motion.div {...vFadeInView(inView, 0)} style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '0.6rem',
-          color: 'rgba(201,168,76,0.55)',
+          color: isMobile || isTablet ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.85)',
           letterSpacing: '0.32em',
           textTransform: 'uppercase',
           whiteSpace: 'nowrap',
@@ -541,7 +541,7 @@ function PillarCard({ pillar, isMobile, isTablet }) {
         <div style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '0.6rem',
-          color: hovered ? 'var(--gold-bright)' : 'rgba(201,168,76,0.4)',
+          color: hovered ? 'var(--gold-bright)' : isMobile ? 'rgba(201,168,76,0.45)' : 'rgba(201,168,76,0.7)',
           letterSpacing: '0.22em',
           marginBottom: '1.2rem',
           transition: 'color 0.4s',
@@ -580,8 +580,8 @@ function PillarCard({ pillar, isMobile, isTablet }) {
 
         <p style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: isMobile ? '0.85rem' : '0.8rem',
-          color: hovered ? 'var(--white-muted)' : 'rgba(245,240,232,0.3)',
+          fontSize: isMobile ? '0.85rem' : '0.82rem',
+          color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.58)' : 'rgba(245,240,232,0.76)',
           lineHeight: 1.7,
           fontWeight: 300,
           margin: 0,

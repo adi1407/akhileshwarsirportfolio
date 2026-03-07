@@ -414,8 +414,8 @@ export default function SceneHero({ navigate }) {
                   </div>
                   <div style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: isMobile ? '0.52rem' : '0.6rem',
-                    color: 'rgba(245,240,232,0.52)',
+                    fontSize: isMobile ? '0.52rem' : '0.62rem',
+                    color: isMobile ? 'rgba(245,240,232,0.52)' : 'rgba(245,240,232,0.82)',
                     letterSpacing: '0.18em',
                     textTransform: 'uppercase',
                     marginTop: '0.35rem',
@@ -581,7 +581,7 @@ export default function SceneHero({ navigate }) {
                 <div style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.62rem',
-                  color: 'rgba(245,240,232,0.58)',
+                  color: 'rgba(245,240,232,0.85)',
                   letterSpacing: '0.22em',
                   textTransform: 'uppercase',
                 }}>

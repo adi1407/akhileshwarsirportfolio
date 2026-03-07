@@ -312,8 +312,8 @@ function ExpertisePanel({ panel, side, isMobile, isTablet, animDelay }) {
       {/* Body */}
       <p style={{
         fontFamily: 'var(--font-sans)',
-        fontSize: isMobile ? '0.88rem' : '0.92rem',
-        color: hovered ? 'var(--white-muted)' : 'rgba(245,240,232,0.48)',
+        fontSize: isMobile ? '0.88rem' : '0.96rem',
+        color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.62)' : 'rgba(245,240,232,0.85)',
         lineHeight: 1.85,
         fontWeight: 300,
         margin: 0,
@@ -353,7 +353,7 @@ function BridgeSection({ isMobile, isTablet }) {
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.6rem',
-            color: 'rgba(201,168,76,0.5)',
+            color: isMobile || isTablet ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.82)',
             letterSpacing: '0.3em',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
@@ -423,8 +423,8 @@ function BridgeSection({ isMobile, isTablet }) {
                 transition={{ duration: 0.75, delay: 0.25 + i * 0.18, ease }}
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: isMobile ? '0.9rem' : '0.98rem',
-                  color: 'var(--white-muted)',
+                  fontSize: isMobile ? '0.9rem' : '1rem',
+                  color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.88)',
                   lineHeight: 1.82,
                   fontWeight: 300,
                   display: 'block',
@@ -604,8 +604,8 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
         />
         <p style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: isMobile ? '0.82rem' : '0.76rem',
-          color: hovered ? 'var(--white-muted)' : 'rgba(245,240,232,0.3)',
+          fontSize: isMobile ? '0.82rem' : '0.8rem',
+          color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.55)' : 'rgba(245,240,232,0.75)',
           lineHeight: 1.65,
           fontWeight: 300,
           margin: 0,

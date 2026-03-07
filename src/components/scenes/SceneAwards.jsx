@@ -740,8 +740,8 @@ export default function SceneAwards() {
             {/* Short description */}
             <div style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: isMobile ? '0.72rem' : 'clamp(0.72rem, 1.1vw, 0.84rem)',
-              color: 'rgba(245,240,232,0.48)',
+              fontSize: isMobile ? '0.72rem' : 'clamp(0.78rem, 1.1vw, 0.9rem)',
+              color: isMobile ? 'rgba(245,240,232,0.52)' : 'rgba(245,240,232,0.78)',
               fontWeight: 300, lineHeight: 1.65,
               letterSpacing: '0.01em',
             }}>
