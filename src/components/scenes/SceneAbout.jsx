@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, forwardRef } from 'react'
 import { motion } from 'framer-motion'
 import ThreeAmbient from '../three/ThreeAmbient.jsx'
 
@@ -63,6 +63,10 @@ export default function SceneAbout() {
   const [showExpertise, setShowExpertise] = useState(false)
   const [showSignature, setShowSignature] = useState(false)
 
+  const sentenceRefs = useRef([])
+  const expertiseRef = useRef(null)
+  const signatureRef = useRef(null)
+
   // ── Responsive layout ──
   useEffect(() => {
     const check = () => {
@@ -116,6 +120,25 @@ export default function SceneAbout() {
 
     return () => timers.forEach(clearTimeout)
   }, [])
+
+  // ── Auto-scroll to each newly revealed sentence ──
+  useEffect(() => {
+    if (revealedCount < 0 || revealedCount >= SENTENCES.length) return
+    const el = sentenceRefs.current[revealedCount]
+    if (!el) return
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50)
+  }, [revealedCount])
+
+  // ── Auto-scroll to expertise + signature when they appear ──
+  useEffect(() => {
+    if (!showExpertise || !expertiseRef.current) return
+    setTimeout(() => expertiseRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100)
+  }, [showExpertise])
+
+  useEffect(() => {
+    if (!showSignature || !signatureRef.current) return
+    setTimeout(() => signatureRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100)
+  }, [showSignature])
 
   // Resolved from state (avoids SSR issues)
   const maxW      = isMobile ? '100%' : isTablet ? '640px' : '780px'
@@ -245,6 +268,7 @@ export default function SceneAbout() {
             return (
               <SentenceBlock
                 key={sentence.id}
+                ref={el => { sentenceRefs.current[i] = el }}
                 sentence={sentence}
                 revealed={revealed}
                 isCurrent={isCurrent}
@@ -258,6 +282,7 @@ export default function SceneAbout() {
         {/* ── Areas of Expertise ── */}
         {showExpertise && (
           <motion.div
+            ref={expertiseRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -312,6 +337,7 @@ export default function SceneAbout() {
         {/* ── Signature ── */}
         {showSignature && (
           <div
+            ref={signatureRef}
             style={{
               display: 'flex', flexDirection: 'column',
               alignItems: bodyAlign,
@@ -358,7 +384,7 @@ export default function SceneAbout() {
 
 // ─── SentenceBlock ──────────────────────────────────────────
 
-function SentenceBlock({ sentence, revealed, isCurrent, isEnded, isMobile }) {
+const SentenceBlock = forwardRef(function SentenceBlock({ sentence, revealed, isCurrent, isEnded, isMobile }, ref) {
   const opacity = !revealed
     ? 0
     : isEnded
@@ -371,6 +397,7 @@ function SentenceBlock({ sentence, revealed, isCurrent, isEnded, isMobile }) {
 
   return (
     <motion.p
+      ref={ref}
       initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
       animate={{
         opacity,
@@ -405,7 +432,7 @@ function SentenceBlock({ sentence, revealed, isCurrent, isEnded, isMobile }) {
       )}
     </motion.p>
   )
-}
+})
 
 // ─── KeyPhrase ──────────────────────────────────────────────
 
