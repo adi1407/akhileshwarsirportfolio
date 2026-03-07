@@ -654,7 +654,7 @@ export default function SceneAwards() {
             textTransform: 'uppercase', marginBottom: '0.3rem',
           }}
         >
-          04&nbsp;&nbsp;/&nbsp;&nbsp;Honours
+          06&nbsp;&nbsp;/&nbsp;&nbsp;Honours
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}

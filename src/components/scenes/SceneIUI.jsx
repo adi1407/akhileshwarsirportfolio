@@ -87,7 +87,7 @@ export default function SceneIUI() {
         fontFamily: 'var(--font-mono)', fontSize: 'var(--text-xs)',
         color: 'rgba(201,168,76,0.4)', letterSpacing: '0.3em', textTransform: 'uppercase',
       }}>
-        06 / IUI Solutions
+        08 / IUI Solutions
       </div>
 
       {/* ── Network SVG — lines drawn from center to each node ── */}

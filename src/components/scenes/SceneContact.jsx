@@ -11,7 +11,7 @@ const SOCIALS = [
   {
     id:    'linkedin',
     label: 'LinkedIn',
-    href:  'https://linkedin.com/in/akhileshwar',
+    href:  'https://www.linkedin.com/in/akhileshwar-kumar-singh/',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -24,7 +24,7 @@ const SOCIALS = [
   {
     id:    'instagram',
     label: 'Instagram',
-    href:  'https://instagram.com/akhileshwar',
+    href:  'https://www.instagram.com/akhileshwarkumarsingh.g/',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -37,7 +37,7 @@ const SOCIALS = [
   {
     id:    'twitter',
     label: 'Twitter / X',
-    href:  'https://twitter.com/akhileshwar',
+    href:  'https://x.com/Akhileshwa32343',
     icon: (
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -47,7 +47,7 @@ const SOCIALS = [
   {
     id:    'facebook',
     label: 'Facebook',
-    href:  'https://facebook.com/akhileshwar',
+    href:  'https://www.facebook.com/profile.php?id=61585189745246',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -151,7 +151,7 @@ export default function SceneContact() {
             marginBottom: '2rem',
           }}
         >
-          09&nbsp;&nbsp;/&nbsp;&nbsp;Contact
+          10&nbsp;&nbsp;/&nbsp;&nbsp;Contact
         </motion.div>
 
         {/* Heading */}
