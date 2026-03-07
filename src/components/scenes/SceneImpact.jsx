@@ -84,7 +84,7 @@ export default function SceneImpact() {
       <div style={{ position: 'relative', zIndex: 2 }}>
         <SpecializationsSection isMobile={isMobile} isTablet={isTablet} scrollRef={scrollRef} />
         <BridgeSection isMobile={isMobile} isTablet={isTablet} />
-        <VisionSection isMobile={isMobile} isTablet={isTablet} navigate={navigate} />
+        <VisionSection isMobile={isMobile} isTablet={isTablet} />
       </div>
     </div>
   )
@@ -443,7 +443,7 @@ function BridgeSection({ isMobile, isTablet }) {
 // ══════════════════════════════════════════════════════════
 //  SECTION 3 — Vision & Legacy with rising pillars
 // ══════════════════════════════════════════════════════════
-function VisionSection({ isMobile, isTablet, navigate }) {
+function VisionSection({ isMobile, isTablet }) {
   const headRef = useReveal(0.18)
   const tilesRef = useReveal(0.1)
 
