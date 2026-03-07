@@ -158,7 +158,7 @@ export default function SceneSecret() {
           textTransform: 'uppercase',
         }}
       >
-        07 / ???
+        08 / ???
       </div>
 
       {/* ── Headline ── */}

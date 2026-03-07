@@ -61,25 +61,20 @@ export default function SceneImpact() {
       overflow: 'hidden auto',
       background: 'linear-gradient(170deg, #07060c 0%, #050508 50%, #040407 100%)',
     }}>
-      {/* Fixed ambient particles */}
       <ThreeAmbient
         particleCount={isMobile ? 24 : 55}
         color="#c9a84c"
         mouseReact={false}
         style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}
       />
-
-      {/* Edge vignette */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 110% 100% at 50% 50%, transparent 35%, rgba(0,0,0,0.55) 100%)',
+        background: 'radial-gradient(ellipse 110% 100% at 50% 50%, transparent 35%, rgba(0,0,0,0.5) 100%)',
       }} />
 
-      {/* Gallery content */}
       <div style={{ position: 'relative', zIndex: 2 }}>
-        <OpeningSection isMobile={isMobile} isTablet={isTablet} />
-        <InstallationSection panel={PANELS[0]} side="left"  isMobile={isMobile} isTablet={isTablet} />
-        <InstallationSection panel={PANELS[1]} side="right" isMobile={isMobile} isTablet={isTablet} />
+        <HeaderSection isMobile={isMobile} isTablet={isTablet} />
+        <PanelsSection isMobile={isMobile} isTablet={isTablet} />
         <FoundationSection isMobile={isMobile} isTablet={isTablet} />
         <VisionSection isMobile={isMobile} isTablet={isTablet} />
       </div>
@@ -88,47 +83,31 @@ export default function SceneImpact() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  OPENING — Full-viewport hero with spotlight
+//  HEADER — Compact scene intro
 // ══════════════════════════════════════════════════════════
-function OpeningSection({ isMobile, isTablet }) {
+function HeaderSection({ isMobile, isTablet }) {
+  const maxW = isMobile ? '100%' : isTablet ? '820px' : '1080px'
   return (
     <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
+      maxWidth: maxW,
+      margin: '0 auto',
+      padding: isMobile ? '3.5rem 1.5rem 2rem' : isTablet ? '4rem 3rem 2.5rem' : '4.5rem 5rem 2.5rem',
       position: 'relative',
-      overflow: 'hidden',
-      padding: isMobile ? '4rem 1.6rem 3rem' : '4rem 3rem 3rem',
     }}>
-      {/* Spotlight cone from top */}
+      {/* Spotlight glow */}
       <div style={{
         position: 'absolute',
         top: 0, left: '50%',
         transform: 'translateX(-50%)',
-        width: isMobile ? '320px' : '640px',
-        height: isMobile ? '420px' : '760px',
-        background: 'conic-gradient(from 90deg at 50% 0%, transparent 35%, rgba(201,168,76,0.06) 44%, rgba(201,168,76,0.12) 50%, rgba(201,168,76,0.06) 56%, transparent 65%)',
+        width: isMobile ? '300px' : '700px',
+        height: isMobile ? '200px' : '340px',
+        background: 'radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 70%)',
+        filter: 'blur(40px)',
         pointerEvents: 'none',
         zIndex: 0,
       }} />
 
-      {/* Spotlight center glow */}
-      <div style={{
-        position: 'absolute',
-        top: '-50px', left: '50%',
-        transform: 'translateX(-50%)',
-        width: '320px', height: '200px',
-        background: 'radial-gradient(ellipse, rgba(201,168,76,0.14) 0%, transparent 70%)',
-        filter: 'blur(35px)',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
-
-      {/* Content */}
-      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '820px' }}>
-
-        {/* Scene label */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -139,223 +118,201 @@ function OpeningSection({ isMobile, isTablet }) {
             color: 'var(--gold)',
             letterSpacing: '0.42em',
             textTransform: 'uppercase',
-            marginBottom: '2.2rem',
+            marginBottom: isMobile ? '1.2rem' : '1.5rem',
           }}
         >
           05&nbsp;&nbsp;/&nbsp;&nbsp;Impact &amp; Legacy
         </motion.div>
 
-        {/* Large title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.28, ease }}
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: isMobile
-              ? 'clamp(3.2rem, 13vw, 4.8rem)'
-              : isTablet
-              ? 'clamp(4.2rem, 8vw, 6.2rem)'
-              : 'clamp(5.5rem, 9vw, 8rem)',
-            fontWeight: 300,
-            color: 'var(--white)',
-            letterSpacing: '-0.04em',
-            lineHeight: 1.0,
-            marginBottom: '1.4rem',
-          }}
-        >
-          Impact &amp;<br />
-          <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Legacy</em>
-        </motion.h2>
+        <div style={{
+          display: isMobile ? 'block' : 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          gap: '2rem',
+        }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.22, ease }}
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: isMobile
+                ? 'clamp(2.8rem, 11vw, 4rem)'
+                : isTablet
+                ? 'clamp(3.5rem, 7vw, 5rem)'
+                : 'clamp(4rem, 6.5vw, 6rem)',
+              fontWeight: 300,
+              color: 'var(--white)',
+              letterSpacing: '-0.04em',
+              lineHeight: 1.0,
+              margin: 0,
+            }}
+          >
+            Impact &amp;<br />
+            <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Legacy</em>
+          </motion.h2>
 
-        {/* Gold divider */}
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.45, ease }}
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontStyle: 'italic',
+              fontSize: isMobile ? '0.9rem' : '1rem',
+              color: 'rgba(245,240,232,0.52)',
+              lineHeight: 1.7,
+              maxWidth: '320px',
+              marginTop: isMobile ? '0.8rem' : 0,
+              paddingBottom: isMobile ? 0 : '0.4rem',
+              flexShrink: 0,
+            }}
+          >
+            Specializations —<br />Where Expertise Meets Impact
+          </motion.p>
+        </div>
+
+        {/* Gold rule */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1.1, delay: 0.52, ease }}
+          transition={{ duration: 1.1, delay: 0.55, ease }}
           style={{
             height: '1px',
-            background: 'linear-gradient(90deg, transparent, var(--gold), transparent)',
-            transformOrigin: 'center',
-            maxWidth: '200px',
-            margin: '0 auto 1.8rem',
+            background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.06))',
+            transformOrigin: 'left',
+            marginTop: isMobile ? '1.5rem' : '2rem',
           }}
         />
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.68, ease }}
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontStyle: 'italic',
-            fontSize: isMobile ? '0.92rem' : '1.05rem',
-            color: 'rgba(245,240,232,0.55)',
-            letterSpacing: '0.04em',
-            lineHeight: 1.7,
-          }}
-        >
-          Specializations — Where Expertise Meets Impact
-        </motion.p>
-
-        {/* Scroll hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.25 }}
-          style={{ marginTop: isMobile ? '2rem' : '2.5rem' }}
-        >
-          <motion.div
-            animate={{ y: [0, 9, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '1.1rem',
-              color: 'rgba(201,168,76,0.4)',
-              userSelect: 'none',
-            }}
-          >
-            ↓
-          </motion.div>
-        </motion.div>
       </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════
-//  INSTALLATION — Floating glass panel, alternating L / R
+//  PANELS — Side-by-side glass cards (desktop) / stacked (mobile)
 // ══════════════════════════════════════════════════════════
-function InstallationSection({ panel, side, isMobile, isTablet }) {
-  const [hovered, setHovered] = useState(false)
-  const { ref, inView } = useReveal(0.18)
-  const isLeft = side === 'left'
+function PanelsSection({ isMobile, isTablet }) {
+  const { ref, inView } = useReveal(0.12)
+  const maxW = isMobile ? '100%' : isTablet ? '820px' : '1080px'
 
   return (
     <div
       ref={ref}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: isMobile || isTablet ? 'center' : isLeft ? 'flex-start' : 'flex-end',
-        padding: isMobile ? '2rem 1.4rem' : isTablet ? '2.5rem 2.5rem' : '3rem 5rem',
-        position: 'relative',
-        overflow: 'hidden',
+        maxWidth: maxW,
+        margin: '0 auto',
+        padding: isMobile ? '1.5rem 1.5rem 2rem' : isTablet ? '2rem 3rem 2.5rem' : '2rem 5rem 3rem',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+        gap: isMobile ? '1.2rem' : '1.5rem',
       }}
     >
-      {/* Ambient glow behind the panel */}
+      {PANELS.map((panel, i) => (
+        <GlassPanel
+          key={panel.num}
+          panel={panel}
+          inView={inView}
+          delay={i * 0.14}
+          isMobile={isMobile}
+          isTablet={isTablet}
+        />
+      ))}
+    </div>
+  )
+}
+
+function GlassPanel({ panel, inView, delay, isMobile, isTablet }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 1, delay, ease }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileHover={{ y: -8 }}
+      style={{
+        background: hovered ? 'rgba(16,13,5,0.97)' : 'rgba(11,9,4,0.82)',
+        border: `1px solid ${hovered ? 'rgba(201,168,76,0.45)' : 'rgba(201,168,76,0.13)'}`,
+        borderRadius: isMobile ? '14px' : '18px',
+        backdropFilter: 'blur(28px)',
+        WebkitBackdropFilter: 'blur(28px)',
+        padding: isMobile ? '1.8rem 1.6rem' : isTablet ? '2.2rem 2rem' : '2.6rem 2.8rem',
+        boxShadow: hovered
+          ? '0 32px 80px rgba(0,0,0,0.68), 0 0 0 1px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.2)'
+          : '0 14px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(201,168,76,0.07)',
+        transition: 'background 0.4s, border-color 0.4s, box-shadow 0.4s',
+        overflow: 'hidden',
+        position: 'relative',
+        cursor: 'default',
+      }}
+    >
+      {/* Top shimmer */}
+      <div style={{
+        position: 'absolute',
+        top: 0, left: '6%', width: '88%', height: '1.5px',
+        background: `linear-gradient(90deg, transparent, rgba(201,168,76,${hovered ? '0.65' : '0.2'}), transparent)`,
+        transition: 'background 0.4s',
+      }} />
+
+      {/* Faint number */}
+      <div style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: isMobile ? '4.5rem' : '7rem',
+        fontWeight: 300,
+        color: `rgba(201,168,76,${hovered ? '0.1' : '0.05'})`,
+        lineHeight: 1,
+        letterSpacing: '-0.04em',
+        marginBottom: isMobile ? '-1rem' : '-1.8rem',
+        userSelect: 'none',
+        transition: 'color 0.4s',
+      }}>
+        {panel.num}
+      </div>
+
+      {/* Title */}
+      <div style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: isMobile ? 'clamp(1.5rem, 5.5vw, 1.9rem)' : isTablet ? '1.75rem' : 'clamp(1.75rem, 2.2vw, 2.2rem)',
+        fontWeight: 300,
+        color: hovered ? 'var(--white)' : 'var(--white-dim)',
+        lineHeight: 1.08,
+        letterSpacing: '-0.022em',
+        whiteSpace: 'pre-line',
+        marginBottom: '1rem',
+        transition: 'color 0.4s',
+      }}>
+        {panel.title}
+      </div>
+
+      {/* Gold accent line */}
       <motion.div
-        animate={inView ? { opacity: hovered ? 1 : 0.65 } : { opacity: 0 }}
-        transition={{ duration: 0.6 }}
+        animate={{ scaleX: hovered ? 1 : 0.25, opacity: hovered ? 1 : 0.38 }}
+        transition={{ duration: 0.45, ease }}
         style={{
-          position: 'absolute',
-          [isLeft ? 'left' : 'right']: isMobile ? '0' : '-5%',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: isMobile ? '100%' : '65%',
-          height: '80%',
-          background: `radial-gradient(ellipse 60% 60% at ${isLeft ? '25%' : '75%'} 50%, rgba(201,168,76,0.08) 0%, transparent 70%)`,
-          filter: 'blur(50px)',
-          pointerEvents: 'none',
-          zIndex: 0,
+          height: '1.5px',
+          background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.06))',
+          transformOrigin: 'left',
+          marginBottom: '1.2rem',
+          maxWidth: '140px',
         }}
       />
 
-      {/* Glass installation panel */}
-      <motion.div
-        initial={{ opacity: 0, x: isLeft ? -90 : 90 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 1.1, ease }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
-        whileHover={{ y: -10 }}
-        style={{
-          position: 'relative', zIndex: 1,
-          width: isMobile ? '100%' : isTablet ? '88%' : '52%',
-          background: hovered ? 'rgba(16,13,5,0.97)' : 'rgba(11,9,4,0.84)',
-          border: `1px solid ${hovered ? 'rgba(201,168,76,0.48)' : 'rgba(201,168,76,0.14)'}`,
-          borderRadius: isMobile ? '14px' : '20px',
-          backdropFilter: 'blur(30px)',
-          WebkitBackdropFilter: 'blur(30px)',
-          padding: isMobile ? '2.2rem 1.8rem' : isTablet ? '2.8rem 2.6rem' : '3.6rem 3.8rem',
-          boxShadow: hovered
-            ? '0 40px 100px rgba(0,0,0,0.72), 0 0 0 1px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.22)'
-            : '0 20px 60px rgba(0,0,0,0.52), inset 0 1px 0 rgba(201,168,76,0.07)',
-          transition: 'background 0.5s, border-color 0.5s, box-shadow 0.5s',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Top shimmer */}
-        <div style={{
-          position: 'absolute',
-          top: 0, left: '6%', width: '88%', height: '1.5px',
-          background: `linear-gradient(90deg, transparent, rgba(201,168,76,${hovered ? '0.7' : '0.22'}), transparent)`,
-          transition: 'background 0.5s',
-        }} />
-
-        {/* Large faint number */}
-        <div style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: isMobile ? '5rem' : '9rem',
-          fontWeight: 300,
-          color: `rgba(201,168,76,${hovered ? '0.11' : '0.055'})`,
-          lineHeight: 1,
-          letterSpacing: '-0.04em',
-          marginBottom: isMobile ? '-1.2rem' : '-2.2rem',
-          userSelect: 'none',
-          transition: 'color 0.5s',
-        }}>
-          {panel.num}
-        </div>
-
-        {/* Title */}
-        <div style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: isMobile
-            ? 'clamp(1.7rem, 6vw, 2.2rem)'
-            : isTablet
-            ? 'clamp(2rem, 4vw, 2.8rem)'
-            : 'clamp(2.3rem, 3.5vw, 3.2rem)',
-          fontWeight: 300,
-          color: hovered ? 'var(--white)' : 'var(--white-dim)',
-          lineHeight: 1.05,
-          letterSpacing: '-0.025em',
-          whiteSpace: 'pre-line',
-          marginBottom: '1.4rem',
-          transition: 'color 0.5s',
-        }}>
-          {panel.title}
-        </div>
-
-        {/* Gold accent line */}
-        <motion.div
-          animate={{ scaleX: hovered ? 1 : 0.28, opacity: hovered ? 1 : 0.42 }}
-          transition={{ duration: 0.5, ease }}
-          style={{
-            height: '1.5px',
-            background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.06))',
-            transformOrigin: 'left',
-            marginBottom: '1.8rem',
-            maxWidth: '180px',
-          }}
-        />
-
-        {/* Body text */}
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: isMobile ? '0.92rem' : '1.02rem',
-          color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.68)' : 'rgba(245,240,232,0.88)',
-          lineHeight: 1.88,
-          fontWeight: 300,
-          margin: 0,
-          transition: 'color 0.5s',
-          maxWidth: '560px',
-        }}>
-          {panel.body}
-        </p>
-      </motion.div>
-    </div>
+      {/* Body */}
+      <p style={{
+        fontFamily: 'var(--font-sans)',
+        fontSize: isMobile ? '0.88rem' : '0.96rem',
+        color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.68)' : 'rgba(245,240,232,0.86)',
+        lineHeight: 1.85,
+        fontWeight: 300,
+        margin: 0,
+        transition: 'color 0.4s',
+      }}>
+        {panel.body}
+      </p>
+    </motion.div>
   )
 }
 
@@ -364,121 +321,117 @@ function InstallationSection({ panel, side, isMobile, isTablet }) {
 // ══════════════════════════════════════════════════════════
 function FoundationSection({ isMobile, isTablet }) {
   const { ref, inView } = useReveal(0.2)
+  const maxW = isMobile ? '100%' : isTablet ? '820px' : '1080px'
 
   return (
     <div
       ref={ref}
       style={{
-        padding: isMobile ? '2.5rem 1.6rem' : isTablet ? '3rem 3rem' : '4rem 5rem',
-        maxWidth: isMobile ? '100%' : isTablet ? '820px' : '1000px',
+        maxWidth: maxW,
         margin: '0 auto',
-        textAlign: isMobile ? 'left' : 'center',
+        padding: isMobile ? '2rem 1.5rem' : isTablet ? '2.5rem 3rem' : '3rem 5rem',
         borderTop: '1px solid rgba(201,168,76,0.08)',
         borderBottom: '1px solid rgba(201,168,76,0.08)',
-        position: 'relative',
       }}
     >
-      {/* Section label with flanking lines */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1.2rem',
-        marginBottom: isMobile ? '2rem' : '3.5rem',
-        justifyContent: isMobile ? 'flex-start' : 'center',
-      }}>
-        {!isMobile && (
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={inView ? { scaleX: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.9, ease }}
-            style={{
-              flex: 1,
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.32))',
-              transformOrigin: 'right',
-            }}
-          />
-        )}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.6rem',
-            color: isMobile ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.82)',
-            letterSpacing: '0.32em',
-            textTransform: 'uppercase',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          The Foundation
-        </motion.div>
-        {!isMobile && (
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={inView ? { scaleX: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.9, ease }}
-            style={{
-              flex: 1,
-              height: '1px',
-              background: 'linear-gradient(90deg, rgba(201,168,76,0.32), transparent)',
-              transformOrigin: 'left',
-            }}
-          />
-        )}
-      </div>
+      <div style={{ display: isMobile ? 'block' : 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
 
-      {/* Heading */}
-      <motion.h3
-        initial={{ opacity: 0, y: 36 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.95, delay: 0.1, ease }}
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: isMobile
-            ? 'clamp(1.8rem, 7vw, 2.5rem)'
-            : isTablet
-            ? 'clamp(2.2rem, 4vw, 3rem)'
-            : 'clamp(2.8rem, 4vw, 3.8rem)',
-          fontWeight: 300,
-          color: 'var(--white)',
-          letterSpacing: '-0.025em',
-          lineHeight: 1.1,
-          marginBottom: isMobile ? '2rem' : '3rem',
-        }}
-      >
-        Where Psychology<br />Meets{' '}
-        <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Leadership</em>
-      </motion.h3>
+        {/* Left: heading */}
+        <div>
+          {/* Label */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.2rem' }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.7 }}
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.6rem',
+                color: isMobile ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.82)',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              The Foundation
+            </motion.div>
+            <motion.div
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+              transition={{ duration: 0.8, ease }}
+              style={{
+                flex: 1,
+                height: '1px',
+                background: 'linear-gradient(90deg, rgba(201,168,76,0.3), transparent)',
+                transformOrigin: 'left',
+              }}
+            />
+          </div>
 
-      {/* Staggered sentences */}
-      <div style={{
-        maxWidth: isMobile ? '100%' : '640px',
-        margin: '0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.4em',
-        textAlign: isMobile ? 'left' : 'center',
-      }}>
-        {LEGACY_PARA.map((s, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-            transition={{ duration: 0.75, delay: 0.28 + i * 0.18, ease }}
+          <motion.h3
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.1, ease }}
             style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: isMobile ? '0.9rem' : '1.02rem',
-              color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.88)',
-              lineHeight: 1.82,
+              fontFamily: 'var(--font-serif)',
+              fontSize: isMobile
+                ? 'clamp(1.7rem, 6.5vw, 2.3rem)'
+                : isTablet
+                ? 'clamp(2rem, 3.5vw, 2.6rem)'
+                : 'clamp(2.2rem, 3vw, 3rem)',
               fontWeight: 300,
-              display: 'block',
+              color: 'var(--white)',
+              letterSpacing: '-0.022em',
+              lineHeight: 1.1,
+              margin: 0,
+              marginBottom: isMobile ? '1.5rem' : 0,
             }}
           >
-            {s}
-          </motion.span>
-        ))}
+            Where Psychology<br />Meets{' '}
+            <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Leadership</em>
+          </motion.h3>
+        </div>
+
+        {/* Right: sentences */}
+        <div style={{
+          paddingLeft: !isMobile && !isTablet ? '1.5rem' : 0,
+          borderLeft: !isMobile && !isTablet ? '2px solid linear-gradient(to bottom, var(--gold), transparent)' : 'none',
+          position: 'relative',
+        }}>
+          {!isMobile && !isTablet && (
+            <motion.div
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={inView ? { scaleY: 1, opacity: 1 } : {}}
+              transition={{ duration: 1, delay: 0.15, ease }}
+              style={{
+                position: 'absolute', left: 0, top: '2px',
+                width: '2px', height: 'calc(100% - 2px)',
+                background: 'linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.06))',
+                transformOrigin: 'top',
+              }}
+            />
+          )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35em' }}>
+            {LEGACY_PARA.map((s, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 12, filter: 'blur(3px)' }}
+                animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                transition={{ duration: 0.7, delay: 0.22 + i * 0.15, ease }}
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: isMobile ? '0.9rem' : '0.98rem',
+                  color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.86)',
+                  lineHeight: 1.82,
+                  fontWeight: 300,
+                  display: 'block',
+                }}
+              >
+                {s}
+              </motion.span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -490,37 +443,39 @@ function FoundationSection({ isMobile, isTablet }) {
 function VisionSection({ isMobile, isTablet }) {
   const headRef  = useReveal(0.18)
   const tilesRef = useReveal(0.1)
+  const maxW = isMobile ? '100%' : isTablet ? '820px' : '1080px'
 
   return (
     <div style={{
-      padding: isMobile ? '2.5rem 1.5rem 4rem' : isTablet ? '3rem 3rem 5rem' : '4rem 5rem 6rem',
-      maxWidth: isMobile ? '100%' : isTablet ? '900px' : '1080px',
+      maxWidth: maxW,
       margin: '0 auto',
+      padding: isMobile ? '2rem 1.5rem 4rem' : isTablet ? '2.5rem 3rem 5rem' : '3rem 5rem 5rem',
     }}>
-      {/* Heading row */}
+      {/* Heading */}
       <div style={{
-        marginBottom: isMobile ? '2rem' : '3rem',
-        display: isMobile || isTablet ? 'block' : 'flex',
+        marginBottom: isMobile ? '1.5rem' : '2rem',
+        display: isMobile ? 'block' : 'flex',
         alignItems: 'flex-end',
-        gap: '4rem',
+        gap: '3rem',
       }}>
         <motion.h2
           ref={headRef.ref}
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 32 }}
           animate={headRef.inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.05, ease }}
+          transition={{ duration: 0.95, delay: 0.05, ease }}
           style={{
             fontFamily: 'var(--font-serif)',
             fontSize: isMobile
-              ? 'clamp(2.4rem, 9vw, 3.2rem)'
+              ? 'clamp(2rem, 8vw, 2.8rem)'
               : isTablet
-              ? 'clamp(3rem, 5vw, 4rem)'
-              : 'clamp(3.8rem, 5.5vw, 5rem)',
+              ? 'clamp(2.5rem, 4.5vw, 3.4rem)'
+              : 'clamp(3rem, 4.5vw, 4rem)',
             fontWeight: 300,
             color: 'var(--white)',
             letterSpacing: '-0.03em',
             lineHeight: 1.07,
             flex: '0 0 auto',
+            margin: 0,
           }}
         >
           Vision &amp;<br />
@@ -528,19 +483,19 @@ function VisionSection({ isMobile, isTablet }) {
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={headRef.inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.22, ease }}
+          transition={{ duration: 0.85, delay: 0.2, ease }}
           style={{
             fontFamily: 'var(--font-sans)',
             fontStyle: 'italic',
-            fontSize: isMobile ? '0.9rem' : '1rem',
+            fontSize: isMobile ? '0.88rem' : '0.96rem',
             color: 'var(--gold)',
             letterSpacing: '0.04em',
-            lineHeight: 1.75,
-            maxWidth: '300px',
-            marginTop: isMobile || isTablet ? '1.2rem' : 0,
-            paddingBottom: '0.5rem',
+            lineHeight: 1.7,
+            maxWidth: '280px',
+            marginTop: isMobile ? '0.8rem' : 0,
+            paddingBottom: '0.3rem',
           }}
         >
           Mentoring. Collaborating. Advocating.
@@ -552,8 +507,8 @@ function VisionSection({ isMobile, isTablet }) {
         ref={tilesRef.ref}
         style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr 1fr 1fr',
-          gap: '1.2rem',
+          gridTemplateColumns: isMobile ? '1fr 1fr' : isTablet ? '1fr 1fr' : '1fr 1fr 1fr 1fr',
+          gap: isMobile ? '0.9rem' : '1.1rem',
         }}
       >
         {TILES.map((tile, i) => (
@@ -561,7 +516,7 @@ function VisionSection({ isMobile, isTablet }) {
             key={tile.num}
             tile={tile}
             inView={tilesRef.inView}
-            delay={0.06 + i * 0.15}
+            delay={0.05 + i * 0.12}
             isMobile={isMobile}
             isTablet={isTablet}
           />
@@ -576,44 +531,46 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 70 }}
+      initial={{ opacity: 0, y: 55 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay, ease }}
+      transition={{ duration: 0.85, delay, ease }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      whileHover={{ y: -7 }}
+      whileHover={{ y: -6 }}
       style={{
-        padding: isMobile ? '1.7rem 1.5rem' : isTablet ? '2rem 1.8rem' : '2.4rem 2rem',
+        padding: isMobile ? '1.3rem 1.1rem' : isTablet ? '1.7rem 1.5rem' : '2rem 1.8rem',
         background: hovered ? 'rgba(16,12,4,0.96)' : 'rgba(10,8,3,0.7)',
         border: `1px solid ${hovered ? 'rgba(201,168,76,0.42)' : 'rgba(201,168,76,0.11)'}`,
-        borderRadius: '16px',
+        borderRadius: '14px',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         boxShadow: hovered
-          ? '0 32px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.14)'
-          : '0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,168,76,0.05)',
+          ? '0 24px 64px rgba(0,0,0,0.62), inset 0 1px 0 rgba(201,168,76,0.14)'
+          : '0 8px 32px rgba(0,0,0,0.38), inset 0 1px 0 rgba(201,168,76,0.05)',
         transition: 'background 0.4s, border-color 0.4s, box-shadow 0.4s',
         cursor: 'default',
         position: 'relative',
         overflow: 'hidden',
-        minHeight: isMobile ? 'auto' : '190px',
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        minHeight: isMobile ? '140px' : '170px',
       }}
     >
       {/* Top shimmer */}
       <div style={{
         position: 'absolute', top: 0, left: '8%', width: '84%', height: '1px',
-        background: `linear-gradient(90deg, transparent, rgba(201,168,76,${hovered ? '0.55' : '0.18'}), transparent)`,
+        background: `linear-gradient(90deg, transparent, rgba(201,168,76,${hovered ? '0.55' : '0.16'}), transparent)`,
         transition: 'background 0.4s',
       }} />
 
-      {/* Faint background number */}
+      {/* Faint number */}
       <div style={{
-        position: 'absolute', right: '0.9rem', top: '0.7rem',
+        position: 'absolute', right: '0.7rem', top: '0.5rem',
         fontFamily: 'var(--font-serif)',
-        fontSize: isMobile ? '4.5rem' : '6rem',
+        fontSize: isMobile ? '3.8rem' : '5.5rem',
         fontWeight: 300,
-        color: `rgba(201,168,76,${hovered ? '0.1' : '0.055'})`,
+        color: `rgba(201,168,76,${hovered ? '0.1' : '0.05'})`,
         lineHeight: 1, letterSpacing: '-0.04em',
         userSelect: 'none', pointerEvents: 'none',
         transition: 'color 0.4s',
@@ -624,11 +581,11 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
       {/* Title */}
       <div style={{
         fontFamily: 'var(--font-serif)',
-        fontSize: isMobile ? '1.45rem' : isTablet ? '1.4rem' : 'clamp(1.25rem, 1.8vw, 1.5rem)',
+        fontSize: isMobile ? '1.1rem' : isTablet ? '1.25rem' : 'clamp(1.1rem, 1.5vw, 1.35rem)',
         fontWeight: 300,
         color: hovered ? 'var(--white)' : 'var(--white-dim)',
-        lineHeight: 1.12,
-        letterSpacing: '-0.018em',
+        lineHeight: 1.15,
+        letterSpacing: '-0.015em',
         whiteSpace: 'pre-line',
         position: 'relative', zIndex: 1,
         transition: 'color 0.4s',
@@ -640,19 +597,19 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
       <div style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           animate={{ scaleX: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.4, ease }}
+          transition={{ duration: 0.35, ease }}
           style={{
-            height: '1.5px',
+            height: '1px',
             background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.06))',
             transformOrigin: 'left',
-            marginBottom: '0.85rem',
+            marginBottom: '0.6rem',
           }}
         />
         <p style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: isMobile ? '0.82rem' : '0.8rem',
-          color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.55)' : 'rgba(245,240,232,0.75)',
-          lineHeight: 1.65,
+          fontSize: isMobile ? '0.75rem' : '0.78rem',
+          color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.52)' : 'rgba(245,240,232,0.72)',
+          lineHeight: 1.6,
           fontWeight: 300,
           margin: 0,
           transition: 'color 0.4s',
