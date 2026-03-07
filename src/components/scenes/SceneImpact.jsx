@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import ThreeAmbient from '../three/ThreeAmbient.jsx'
 
 // ─── Content ──────────────────────────────────────────────
@@ -24,9 +24,9 @@ const LEGACY_PARA = [
 ]
 
 const TILES = [
-  { num: '01', title: 'Active\nMentorship',   desc: 'Developing the next generation of healthcare leaders.' },
+  { num: '01', title: 'Active\nMentorship',    desc: 'Developing the next generation of healthcare leaders.' },
   { num: '02', title: 'Institutional\nPartner', desc: 'Collaborating with healthcare organisations nationwide.' },
-  { num: '03', title: 'Industry\nAdvocacy',    desc: 'Championing efficient, ethical management at every level.' },
+  { num: '03', title: 'Industry\nAdvocacy',     desc: 'Championing efficient, ethical management at every level.' },
   { num: '04', title: 'Continuous\nInnovation', desc: 'Building ventures that advance care access and quality.' },
 ]
 
@@ -42,7 +42,6 @@ function useReveal(amount = 0.15) {
 export default function SceneImpact() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
-  const scrollRef = useRef(null)
 
   useEffect(() => {
     const check = () => {
@@ -56,34 +55,32 @@ export default function SceneImpact() {
 
   return (
     <div style={{
-      width: '100%', height: '100%',
+      width: '100%',
+      height: '100%',
       position: 'relative',
       overflow: 'hidden auto',
-      background: 'radial-gradient(ellipse 100% 55% at 50% 0%, #0b0a10 0%, #07060a 55%, #030304 100%)',
-    }} ref={scrollRef}>
-
-      {/* Fixed ambient layers */}
+      background: 'linear-gradient(170deg, #07060c 0%, #050508 50%, #040407 100%)',
+    }}>
+      {/* Fixed ambient particles */}
       <ThreeAmbient
         particleCount={isMobile ? 24 : 55}
         color="#c9a84c"
         mouseReact={false}
         style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}
       />
-      <div style={{
-        position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)',
-        width: '1200px', height: '420px',
-        background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
+
+      {/* Edge vignette */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 110% 100% at 50% 50%, transparent 35%, rgba(0,0,0,0.5) 100%)',
+        background: 'radial-gradient(ellipse 110% 100% at 50% 50%, transparent 35%, rgba(0,0,0,0.55) 100%)',
       }} />
 
-      {/* ── Content ── */}
+      {/* Gallery content */}
       <div style={{ position: 'relative', zIndex: 2 }}>
-        <SpecializationsSection isMobile={isMobile} isTablet={isTablet} scrollRef={scrollRef} />
-        <BridgeSection isMobile={isMobile} isTablet={isTablet} />
+        <OpeningSection isMobile={isMobile} isTablet={isTablet} />
+        <InstallationSection panel={PANELS[0]} side="left"  isMobile={isMobile} isTablet={isTablet} />
+        <InstallationSection panel={PANELS[1]} side="right" isMobile={isMobile} isTablet={isTablet} />
+        <FoundationSection isMobile={isMobile} isTablet={isTablet} />
         <VisionSection isMobile={isMobile} isTablet={isTablet} />
       </div>
     </div>
@@ -91,360 +88,409 @@ export default function SceneImpact() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  SECTION 1 — Full-screen split columns
+//  OPENING — Full-viewport hero with spotlight
 // ══════════════════════════════════════════════════════════
-function SpecializationsSection({ isMobile, isTablet, scrollRef }) {
-  // Scroll-parallax: columns drift apart as user scrolls
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, container: scrollRef, offset: ['start start', 'end start'] })
-  const leftX   = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '0%' : '-6%'])
-  const rightX  = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '0%' : '6%'])
-  const fade    = useTransform(scrollYProgress, [0, 0.7], [1, 0.35])
-
+function OpeningSection({ isMobile, isTablet }) {
   return (
-    <div
-      ref={ref}
-      style={{
-        minHeight: isMobile ? 'auto' : '100vh',
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        padding: isMobile ? '4.5rem 1.5rem 3rem' : isTablet ? '5rem 3rem 4rem' : '6rem 5rem 5rem',
-        maxWidth: isMobile ? '100%' : isTablet ? '900px' : '1080px',
-        margin: '0 auto',
-      }}
-    >
-      {/* Opening header */}
-      <div style={{ marginBottom: isMobile ? '2.5rem' : '4rem' }}>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+      padding: isMobile ? '6rem 1.6rem 4rem' : '5rem 3rem 4rem',
+    }}>
+      {/* Spotlight cone from top */}
+      <div style={{
+        position: 'absolute',
+        top: 0, left: '50%',
+        transform: 'translateX(-50%)',
+        width: isMobile ? '320px' : '640px',
+        height: isMobile ? '420px' : '760px',
+        background: 'conic-gradient(from 90deg at 50% 0%, transparent 35%, rgba(201,168,76,0.06) 44%, rgba(201,168,76,0.12) 50%, rgba(201,168,76,0.06) 56%, transparent 65%)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
+      {/* Spotlight center glow */}
+      <div style={{
+        position: 'absolute',
+        top: '-50px', left: '50%',
+        transform: 'translateX(-50%)',
+        width: '320px', height: '200px',
+        background: 'radial-gradient(ellipse, rgba(201,168,76,0.14) 0%, transparent 70%)',
+        filter: 'blur(35px)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
+      {/* Content */}
+      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '820px' }}>
+
+        {/* Scene label */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.08 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 'var(--text-xs)',
             color: 'var(--gold)',
             letterSpacing: '0.42em',
             textTransform: 'uppercase',
-            marginBottom: '1.5rem',
+            marginBottom: '2.2rem',
           }}
         >
           05&nbsp;&nbsp;/&nbsp;&nbsp;Impact &amp; Legacy
         </motion.div>
 
-        {/* Animated gold rule */}
+        {/* Large title */}
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.28, ease }}
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: isMobile
+              ? 'clamp(3.2rem, 13vw, 4.8rem)'
+              : isTablet
+              ? 'clamp(4.2rem, 8vw, 6.2rem)'
+              : 'clamp(5.5rem, 9vw, 8rem)',
+            fontWeight: 300,
+            color: 'var(--white)',
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            marginBottom: '1.4rem',
+          }}
+        >
+          Impact &amp;<br />
+          <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Legacy</em>
+        </motion.h2>
+
+        {/* Gold divider */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1.3, delay: 0.2, ease }}
+          transition={{ duration: 1.1, delay: 0.52, ease }}
           style={{
-            height: '1.5px',
-            background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.04))',
-            transformOrigin: 'left',
-            marginBottom: '2.8rem',
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, var(--gold), transparent)',
+            transformOrigin: 'center',
+            maxWidth: '200px',
+            margin: '0 auto 1.8rem',
           }}
         />
 
-        <div style={{
-          display: isMobile || isTablet ? 'block' : 'flex',
-          alignItems: 'flex-end',
-          gap: '4rem',
-        }}>
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.35, ease }}
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: isMobile ? 'clamp(2.4rem, 10vw, 3.2rem)' : isTablet ? 'clamp(3rem, 6vw, 4.2rem)' : 'clamp(4rem, 6vw, 5.5rem)',
-              fontWeight: 300,
-              color: 'var(--white)',
-              letterSpacing: '-0.032em',
-              lineHeight: 1.05,
-              flex: '0 0 auto',
-            }}
-          >
-            Speciali-<br />
-            <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>zations</em>
-          </motion.h2>
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.68, ease }}
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontStyle: 'italic',
+            fontSize: isMobile ? '0.92rem' : '1.05rem',
+            color: 'rgba(245,240,232,0.55)',
+            letterSpacing: '0.04em',
+            lineHeight: 1.7,
+          }}
+        >
+          Specializations — Where Expertise Meets Impact
+        </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.55, ease }}
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontStyle: 'italic',
-              fontSize: isMobile ? '0.9rem' : '1rem',
-              color: 'var(--white-muted)',
-              lineHeight: 1.75,
-              maxWidth: '340px',
-              marginTop: isMobile || isTablet ? '1.2rem' : 0,
-              paddingBottom: '0.5rem',
-            }}
-          >
-            Where Expertise Meets Impact
-          </motion.p>
-        </div>
-      </div>
-
-      {/* Two panels — with scroll parallax on desktop */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-        gap: isMobile ? '1.2rem' : '0',
-        position: 'relative',
-      }}>
-        {/* Center divider on desktop */}
-        {!isMobile && (
+        {/* Scroll hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.25 }}
+          style={{ marginTop: isMobile ? '3.5rem' : '5rem' }}
+        >
           <motion.div
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ scaleY: 1, opacity: 1 }}
-            transition={{ duration: 1.1, delay: 0.9, ease }}
+            animate={{ y: [0, 9, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             style={{
-              position: 'absolute',
-              left: '50%', top: '8%', bottom: '8%',
-              width: '1px',
-              background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.28), transparent)',
-              transformOrigin: 'top',
-              zIndex: 1, pointerEvents: 'none',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '1.1rem',
+              color: 'rgba(201,168,76,0.4)',
+              userSelect: 'none',
             }}
-          />
-        )}
-
-        {/* Left panel */}
-        <motion.div style={{ x: leftX, opacity: fade }}>
-          <ExpertisePanel
-            panel={PANELS[0]}
-            side="left"
-            isMobile={isMobile}
-            isTablet={isTablet}
-            animDelay={0.7}
-          />
-        </motion.div>
-
-        {/* Right panel */}
-        <motion.div style={{ x: rightX, opacity: fade }}>
-          <ExpertisePanel
-            panel={PANELS[1]}
-            side="right"
-            isMobile={isMobile}
-            isTablet={isTablet}
-            animDelay={0.88}
-          />
+          >
+            ↓
+          </motion.div>
         </motion.div>
       </div>
     </div>
   )
 }
 
-function ExpertisePanel({ panel, side, isMobile, isTablet, animDelay }) {
+// ══════════════════════════════════════════════════════════
+//  INSTALLATION — Floating glass panel, alternating L / R
+// ══════════════════════════════════════════════════════════
+function InstallationSection({ panel, side, isMobile, isTablet }) {
   const [hovered, setHovered] = useState(false)
-  const pad = isMobile
-    ? '1.8rem 1.6rem'
-    : isTablet
-    ? '2.2rem 2rem'
-    : side === 'left'
-    ? '2.8rem 3rem 2.8rem 0'
-    : '2.8rem 0 2.8rem 3rem'
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: side === 'left' ? -60 : 60 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 1, delay: animDelay, ease }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      style={{
-        padding: pad,
-        background: isMobile || isTablet
-          ? (hovered ? 'rgba(16,12,4,0.96)' : 'rgba(10,8,3,0.72)')
-          : 'transparent',
-        border: isMobile || isTablet
-          ? `1px solid ${hovered ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.12)'}`
-          : 'none',
-        borderRadius: isMobile || isTablet ? '16px' : 0,
-        backdropFilter: isMobile || isTablet ? 'blur(20px)' : 'none',
-        transition: 'background 0.4s, border-color 0.4s',
-        cursor: 'default',
-      }}
-    >
-      {/* Large faint background number */}
-      <div style={{
-        fontFamily: 'var(--font-serif)',
-        fontSize: isMobile ? '4rem' : isTablet ? '5rem' : '8rem',
-        fontWeight: 300,
-        color: `rgba(201,168,76,${hovered ? '0.1' : '0.055'})`,
-        lineHeight: 1,
-        letterSpacing: '-0.04em',
-        marginBottom: isMobile ? '-1rem' : '-1.8rem',
-        userSelect: 'none',
-        transition: 'color 0.4s',
-      }}>
-        {panel.num}
-      </div>
-
-      {/* Title */}
-      <div style={{
-        fontFamily: 'var(--font-serif)',
-        fontSize: isMobile ? '1.65rem' : isTablet ? '1.85rem' : 'clamp(1.9rem, 2.8vw, 2.6rem)',
-        fontWeight: 300,
-        color: hovered ? 'var(--white)' : 'var(--white-dim)',
-        lineHeight: 1.1,
-        letterSpacing: '-0.022em',
-        whiteSpace: 'pre-line',
-        marginBottom: '1.2rem',
-        transition: 'color 0.4s',
-      }}>
-        {panel.title}
-      </div>
-
-      {/* Animated underline */}
-      <motion.div
-        animate={{ scaleX: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.4, ease }}
-        style={{
-          height: '1.5px',
-          background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.06))',
-          transformOrigin: 'left',
-          marginBottom: '1.3rem',
-        }}
-      />
-
-      {/* Body */}
-      <p style={{
-        fontFamily: 'var(--font-sans)',
-        fontSize: isMobile ? '0.88rem' : '0.96rem',
-        color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.62)' : 'rgba(245,240,232,0.85)',
-        lineHeight: 1.85,
-        fontWeight: 300,
-        margin: 0,
-        transition: 'color 0.4s',
-      }}>
-        {panel.body}
-      </p>
-    </motion.div>
-  )
-}
-
-// ══════════════════════════════════════════════════════════
-//  SECTION 2 — Bridge / Psychology
-// ══════════════════════════════════════════════════════════
-function BridgeSection({ isMobile, isTablet }) {
-  const { ref, inView } = useReveal(0.2)
-
-  const sentences = LEGACY_PARA
+  const { ref, inView } = useReveal(0.18)
+  const isLeft = side === 'left'
 
   return (
     <div
       ref={ref}
       style={{
-        padding: isMobile ? '4rem 1.5rem' : isTablet ? '5rem 3rem' : '7rem 5rem',
-        maxWidth: isMobile ? '100%' : isTablet ? '900px' : '1080px',
-        margin: '0 auto',
-        borderTop: '1px solid rgba(201,168,76,0.1)',
-        borderBottom: '1px solid rgba(201,168,76,0.1)',
+        minHeight: isMobile ? 'auto' : '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: isMobile || isTablet ? 'center' : isLeft ? 'flex-start' : 'flex-end',
+        padding: isMobile ? '3.5rem 1.4rem' : isTablet ? '4rem 3rem' : '5rem 5rem',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      {/* Section divider label */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: isMobile ? '2.5rem' : '4rem' }}>
+      {/* Ambient glow behind the panel */}
+      <motion.div
+        animate={inView ? { opacity: hovered ? 1 : 0.65 } : { opacity: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          position: 'absolute',
+          [isLeft ? 'left' : 'right']: isMobile ? '0' : '-5%',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: isMobile ? '100%' : '65%',
+          height: '80%',
+          background: `radial-gradient(ellipse 60% 60% at ${isLeft ? '25%' : '75%'} 50%, rgba(201,168,76,0.08) 0%, transparent 70%)`,
+          filter: 'blur(50px)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Glass installation panel */}
+      <motion.div
+        initial={{ opacity: 0, x: isLeft ? -90 : 90 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 1.1, ease }}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+        whileHover={{ y: -10 }}
+        style={{
+          position: 'relative', zIndex: 1,
+          width: isMobile ? '100%' : isTablet ? '88%' : '52%',
+          background: hovered ? 'rgba(16,13,5,0.97)' : 'rgba(11,9,4,0.84)',
+          border: `1px solid ${hovered ? 'rgba(201,168,76,0.48)' : 'rgba(201,168,76,0.14)'}`,
+          borderRadius: isMobile ? '14px' : '20px',
+          backdropFilter: 'blur(30px)',
+          WebkitBackdropFilter: 'blur(30px)',
+          padding: isMobile ? '2.2rem 1.8rem' : isTablet ? '2.8rem 2.6rem' : '3.6rem 3.8rem',
+          boxShadow: hovered
+            ? '0 40px 100px rgba(0,0,0,0.72), 0 0 0 1px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.22)'
+            : '0 20px 60px rgba(0,0,0,0.52), inset 0 1px 0 rgba(201,168,76,0.07)',
+          transition: 'background 0.5s, border-color 0.5s, box-shadow 0.5s',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Top shimmer */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: '6%', width: '88%', height: '1.5px',
+          background: `linear-gradient(90deg, transparent, rgba(201,168,76,${hovered ? '0.7' : '0.22'}), transparent)`,
+          transition: 'background 0.5s',
+        }} />
+
+        {/* Large faint number */}
+        <div style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: isMobile ? '5rem' : '9rem',
+          fontWeight: 300,
+          color: `rgba(201,168,76,${hovered ? '0.11' : '0.055'})`,
+          lineHeight: 1,
+          letterSpacing: '-0.04em',
+          marginBottom: isMobile ? '-1.2rem' : '-2.2rem',
+          userSelect: 'none',
+          transition: 'color 0.5s',
+        }}>
+          {panel.num}
+        </div>
+
+        {/* Title */}
+        <div style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: isMobile
+            ? 'clamp(1.7rem, 6vw, 2.2rem)'
+            : isTablet
+            ? 'clamp(2rem, 4vw, 2.8rem)'
+            : 'clamp(2.3rem, 3.5vw, 3.2rem)',
+          fontWeight: 300,
+          color: hovered ? 'var(--white)' : 'var(--white-dim)',
+          lineHeight: 1.05,
+          letterSpacing: '-0.025em',
+          whiteSpace: 'pre-line',
+          marginBottom: '1.4rem',
+          transition: 'color 0.5s',
+        }}>
+          {panel.title}
+        </div>
+
+        {/* Gold accent line */}
+        <motion.div
+          animate={{ scaleX: hovered ? 1 : 0.28, opacity: hovered ? 1 : 0.42 }}
+          transition={{ duration: 0.5, ease }}
+          style={{
+            height: '1.5px',
+            background: 'linear-gradient(90deg, var(--gold-bright), rgba(201,168,76,0.06))',
+            transformOrigin: 'left',
+            marginBottom: '1.8rem',
+            maxWidth: '180px',
+          }}
+        />
+
+        {/* Body text */}
+        <p style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: isMobile ? '0.92rem' : '1.02rem',
+          color: hovered ? 'var(--white)' : isMobile ? 'rgba(245,240,232,0.68)' : 'rgba(245,240,232,0.88)',
+          lineHeight: 1.88,
+          fontWeight: 300,
+          margin: 0,
+          transition: 'color 0.5s',
+          maxWidth: '560px',
+        }}>
+          {panel.body}
+        </p>
+      </motion.div>
+    </div>
+  )
+}
+
+// ══════════════════════════════════════════════════════════
+//  FOUNDATION — Centered philosophical pause
+// ══════════════════════════════════════════════════════════
+function FoundationSection({ isMobile, isTablet }) {
+  const { ref, inView } = useReveal(0.2)
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        padding: isMobile ? '4rem 1.6rem' : isTablet ? '5rem 4rem' : '8rem 5rem',
+        maxWidth: isMobile ? '100%' : isTablet ? '820px' : '1000px',
+        margin: '0 auto',
+        textAlign: isMobile ? 'left' : 'center',
+        borderTop: '1px solid rgba(201,168,76,0.08)',
+        borderBottom: '1px solid rgba(201,168,76,0.08)',
+        position: 'relative',
+      }}
+    >
+      {/* Section label with flanking lines */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1.2rem',
+        marginBottom: isMobile ? '2rem' : '3.5rem',
+        justifyContent: isMobile ? 'flex-start' : 'center',
+      }}>
+        {!isMobile && (
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.9, ease }}
+            style={{
+              flex: 1,
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.32))',
+              transformOrigin: 'right',
+            }}
+          />
+        )}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '0.6rem',
-            color: isMobile || isTablet ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.82)',
-            letterSpacing: '0.3em',
+            color: isMobile ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.82)',
+            letterSpacing: '0.32em',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
           }}
         >
           The Foundation
         </motion.div>
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.9, delay: 0.15, ease }}
-          style={{
-            flex: 1, height: '1px',
-            background: 'linear-gradient(90deg, rgba(201,168,76,0.32), transparent)',
-            transformOrigin: 'left',
-          }}
-        />
+        {!isMobile && (
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.9, ease }}
+            style={{
+              flex: 1,
+              height: '1px',
+              background: 'linear-gradient(90deg, rgba(201,168,76,0.32), transparent)',
+              transformOrigin: 'left',
+            }}
+          />
+        )}
       </div>
 
+      {/* Heading */}
+      <motion.h3
+        initial={{ opacity: 0, y: 36 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.95, delay: 0.1, ease }}
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: isMobile
+            ? 'clamp(1.8rem, 7vw, 2.5rem)'
+            : isTablet
+            ? 'clamp(2.2rem, 4vw, 3rem)'
+            : 'clamp(2.8rem, 4vw, 3.8rem)',
+          fontWeight: 300,
+          color: 'var(--white)',
+          letterSpacing: '-0.025em',
+          lineHeight: 1.1,
+          marginBottom: isMobile ? '2rem' : '3rem',
+        }}
+      >
+        Where Psychology<br />Meets{' '}
+        <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Leadership</em>
+      </motion.h3>
+
+      {/* Staggered sentences */}
       <div style={{
-        display: isMobile || isTablet ? 'block' : 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '5rem',
-        alignItems: 'start',
+        maxWidth: isMobile ? '100%' : '640px',
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.4em',
+        textAlign: isMobile ? 'left' : 'center',
       }}>
-        {/* Left: heading */}
-        <motion.h3
-          initial={{ opacity: 0, y: 36 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.95, delay: 0.1, ease }}
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: isMobile ? 'clamp(1.7rem, 7vw, 2.3rem)' : isTablet ? 'clamp(2rem, 4vw, 2.8rem)' : 'clamp(2.3rem, 3.5vw, 3.2rem)',
-            fontWeight: 300,
-            color: 'var(--white)',
-            letterSpacing: '-0.022em',
-            lineHeight: 1.1,
-            marginBottom: isMobile || isTablet ? '1.5rem' : 0,
-          }}
-        >
-          Where Psychology<br />Meets{' '}
-          <em style={{ color: 'var(--gold-bright)', fontStyle: 'italic' }}>Leadership</em>
-        </motion.h3>
-
-        {/* Right: staggered sentences */}
-        <div style={{ position: 'relative', paddingLeft: !isMobile && !isTablet ? '2rem' : 0 }}>
-          {!isMobile && !isTablet && (
-            <motion.div
-              initial={{ scaleY: 0, opacity: 0 }}
-              animate={inView ? { scaleY: 1, opacity: 1 } : {}}
-              transition={{ duration: 1, delay: 0.2, ease }}
-              style={{
-                position: 'absolute', left: 0, top: '3px',
-                width: '2px', height: 'calc(100% - 3px)',
-                background: 'linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.08))',
-                transformOrigin: 'top',
-              }}
-            />
-          )}
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4em' }}>
-            {sentences.map((s, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 14 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.75, delay: 0.25 + i * 0.18, ease }}
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: isMobile ? '0.9rem' : '1rem',
-                  color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.88)',
-                  lineHeight: 1.82,
-                  fontWeight: 300,
-                  display: 'block',
-                }}
-              >
-                {s}
-              </motion.span>
-            ))}
-          </div>
-        </div>
+        {LEGACY_PARA.map((s, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 0.75, delay: 0.28 + i * 0.18, ease }}
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: isMobile ? '0.9rem' : '1.02rem',
+              color: isMobile ? 'var(--white-muted)' : 'rgba(245,240,232,0.88)',
+              lineHeight: 1.82,
+              fontWeight: 300,
+              display: 'block',
+            }}
+          >
+            {s}
+          </motion.span>
+        ))}
       </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════
-//  SECTION 3 — Vision & Legacy with rising pillars
+//  VISION — 4 rising pillar cards
 // ══════════════════════════════════════════════════════════
 function VisionSection({ isMobile, isTablet }) {
-  const headRef = useReveal(0.18)
+  const headRef  = useReveal(0.18)
   const tilesRef = useReveal(0.1)
 
   return (
@@ -453,8 +499,7 @@ function VisionSection({ isMobile, isTablet }) {
       maxWidth: isMobile ? '100%' : isTablet ? '900px' : '1080px',
       margin: '0 auto',
     }}>
-
-      {/* Heading */}
+      {/* Heading row */}
       <div style={{
         marginBottom: isMobile ? '3rem' : '5rem',
         display: isMobile || isTablet ? 'block' : 'flex',
@@ -468,7 +513,11 @@ function VisionSection({ isMobile, isTablet }) {
           transition={{ duration: 1, delay: 0.05, ease }}
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: isMobile ? 'clamp(2.4rem, 9vw, 3.2rem)' : isTablet ? 'clamp(3rem, 5vw, 4rem)' : 'clamp(3.8rem, 5.5vw, 5rem)',
+            fontSize: isMobile
+              ? 'clamp(2.4rem, 9vw, 3.2rem)'
+              : isTablet
+              ? 'clamp(3rem, 5vw, 4rem)'
+              : 'clamp(3.8rem, 5.5vw, 5rem)',
             fontWeight: 300,
             color: 'var(--white)',
             letterSpacing: '-0.03em',
@@ -500,13 +549,13 @@ function VisionSection({ isMobile, isTablet }) {
         </motion.p>
       </div>
 
-      {/* Pillars — rise from bottom */}
+      {/* Pillar grid */}
       <div
         ref={tilesRef.ref}
         style={{
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr 1fr 1fr',
-          gap: isMobile ? '1.2rem' : '1.2rem',
+          gap: '1.2rem',
         }}
       >
         {TILES.map((tile, i) => (
@@ -520,7 +569,6 @@ function VisionSection({ isMobile, isTablet }) {
           />
         ))}
       </div>
-
     </div>
   )
 }
@@ -590,7 +638,7 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
         {tile.title}
       </div>
 
-      {/* Description area */}
+      {/* Description */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           animate={{ scaleX: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
@@ -617,4 +665,3 @@ function PillarTile({ tile, inView, delay, isMobile, isTablet }) {
     </motion.div>
   )
 }
-
