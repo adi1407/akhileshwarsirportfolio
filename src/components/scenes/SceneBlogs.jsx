@@ -170,7 +170,7 @@ export default function SceneBlogs() {
             textTransform: 'uppercase',
             marginBottom: '1rem',
           }}>
-            07 / Thoughts
+            06 / Thoughts
           </div>
           <h2 style={{
             fontFamily: 'var(--font-serif)',

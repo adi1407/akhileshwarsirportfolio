@@ -7,7 +7,6 @@ import SceneAbout    from './components/scenes/SceneAbout.jsx'
 import SceneEducation from './components/scenes/SceneEducation.jsx'
 import SceneMilestone from './components/scenes/SceneMilestone.jsx'
 import SceneImpact   from './components/scenes/SceneImpact.jsx'
-import SceneAwards   from './components/scenes/SceneAwards.jsx'
 import SceneBlogs    from './components/scenes/SceneBlogs.jsx'
 import SceneIUI      from './components/scenes/SceneIUI.jsx'
 import SceneSecret     from './components/scenes/SceneSecret.jsx'
@@ -35,7 +34,6 @@ const SCENES = [
   { id: 'foundations', label: 'Foundations', Component: SceneEducation },
   { id: 'journey',     label: 'Journey',     Component: SceneMilestone },
   { id: 'impact',      label: 'Impact',      Component: SceneImpact },
-  { id: 'awards',    label: 'Honours',   Component: SceneAwards },
   { id: 'blogs',     label: 'Thoughts',  Component: SceneBlogs },
   { id: 'iui',       label: 'IUI',       Component: SceneIUI },
   { id: 'secret',     label: '???',        Component: SceneSecret },

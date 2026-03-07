@@ -151,7 +151,7 @@ export default function SceneContact() {
             marginBottom: '2rem',
           }}
         >
-          10&nbsp;&nbsp;/&nbsp;&nbsp;Contact
+          09&nbsp;&nbsp;/&nbsp;&nbsp;Contact
         </motion.div>
 
         {/* Heading */}

@@ -93,14 +93,13 @@ export default function SceneImpact() {
 function OpeningSection({ isMobile, isTablet }) {
   return (
     <div style={{
-      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
       overflow: 'hidden',
-      padding: isMobile ? '6rem 1.6rem 4rem' : '5rem 3rem 4rem',
+      padding: isMobile ? '4rem 1.6rem 3rem' : '4rem 3rem 3rem',
     }}>
       {/* Spotlight cone from top */}
       <div style={{
@@ -205,7 +204,7 @@ function OpeningSection({ isMobile, isTablet }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.25 }}
-          style={{ marginTop: isMobile ? '3.5rem' : '5rem' }}
+          style={{ marginTop: isMobile ? '2rem' : '2.5rem' }}
         >
           <motion.div
             animate={{ y: [0, 9, 0] }}
@@ -237,11 +236,10 @@ function InstallationSection({ panel, side, isMobile, isTablet }) {
     <div
       ref={ref}
       style={{
-        minHeight: isMobile ? 'auto' : '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: isMobile || isTablet ? 'center' : isLeft ? 'flex-start' : 'flex-end',
-        padding: isMobile ? '3.5rem 1.4rem' : isTablet ? '4rem 3rem' : '5rem 5rem',
+        padding: isMobile ? '2rem 1.4rem' : isTablet ? '2.5rem 2.5rem' : '3rem 5rem',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -371,7 +369,7 @@ function FoundationSection({ isMobile, isTablet }) {
     <div
       ref={ref}
       style={{
-        padding: isMobile ? '4rem 1.6rem' : isTablet ? '5rem 4rem' : '8rem 5rem',
+        padding: isMobile ? '2.5rem 1.6rem' : isTablet ? '3rem 3rem' : '4rem 5rem',
         maxWidth: isMobile ? '100%' : isTablet ? '820px' : '1000px',
         margin: '0 auto',
         textAlign: isMobile ? 'left' : 'center',
@@ -495,13 +493,13 @@ function VisionSection({ isMobile, isTablet }) {
 
   return (
     <div style={{
-      padding: isMobile ? '4rem 1.5rem 7rem' : isTablet ? '5rem 3rem 8rem' : '7rem 5rem 9rem',
+      padding: isMobile ? '2.5rem 1.5rem 4rem' : isTablet ? '3rem 3rem 5rem' : '4rem 5rem 6rem',
       maxWidth: isMobile ? '100%' : isTablet ? '900px' : '1080px',
       margin: '0 auto',
     }}>
       {/* Heading row */}
       <div style={{
-        marginBottom: isMobile ? '3rem' : '5rem',
+        marginBottom: isMobile ? '2rem' : '3rem',
         display: isMobile || isTablet ? 'block' : 'flex',
         alignItems: 'flex-end',
         gap: '4rem',

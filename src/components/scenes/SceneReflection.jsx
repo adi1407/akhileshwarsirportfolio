@@ -135,7 +135,7 @@ export default function SceneReflection() {
             marginBottom: '2.4rem',
           }}
         >
-          09&nbsp;&nbsp;/&nbsp;&nbsp;Reflection
+          08&nbsp;&nbsp;/&nbsp;&nbsp;Reflection
         </motion.div>
 
         {/* ── Image block ── */}
