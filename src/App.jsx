@@ -62,11 +62,19 @@ export default function App() {
     setDir(idx > current ? 1 : -1)
     setPrev(current)
     setCurrent(idx)
+    window.location.hash = SCENES[idx].id
     setTimeout(() => {
       setPrev(null)
       setTransitioning(false)
     }, 900)
   }, [current, transitioning])
+
+  // On load, read hash and jump to that scene (skips intro)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1)
+    const idx = SCENES.findIndex(s => s.id === hash)
+    if (idx > 0) setCurrent(idx)
+  }, [])
 
   // Keyboard navigation (disabled while intro is showing)
   useEffect(() => {

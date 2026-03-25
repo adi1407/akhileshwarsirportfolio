@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /#secret
 
-Sitemap: https://akhileshwarsirportfolio.onrender.com/sitemap.xml
+Crawl-delay: 10
+
+Sitemap: https://akhileshwarksingh.com/sitemap.xml
